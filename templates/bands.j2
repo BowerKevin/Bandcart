@@ -1,29 +1,40 @@
-<h1>Hello World</h1>
-<table>
-<thead>
-<tr>
-    <!-- Iterate through each key in the first entry to get the
-    column name -->
-    {% for key in Bands[0].keys() %}
+<html>
+    <form>
+        <label for="bandName">Band name: </label>
+        <input type="text" id="bandName" name="bandName">
+        <label for="numMembers">Number of Members: </label>
+        <input type="number" id="numMembers" name="numMembers">
+        <label for="genre">Genre: </label>
+        <input type="number" id="genre" name="genre">
+        <input type="submit" id="addBand" value="Add">
+    </form>
 
-    <!-- Create a <th> tag with the key inside of it, this will be
-    our header row -->
-    <th>{{ key }}</th>
+    <table>
+    <thead>
+    <tr>
+        <!-- Iterate through each key in the first entry to get the
+        column name -->
+        {% for key in Bands[0].keys() %}
 
-    <!-- End of this for loop -->
+        <!-- Create a <th> tag with the key inside of it, this will be
+        our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+    </tr>
+    <tbody>
+
+    <!-- Now, iterate through every person in bsg_people -->
+    {% for Band in Bands %}
+    <tr>
+        <!-- Then iterate through every key in the current person dictionary -->
+        {% for key in Band.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{Band[key]}}</td>
+        {% endfor %}
+    </tr>
     {% endfor %}
-</tr>
-<tbody>
-
-<!-- Now, iterate through every person in bsg_people -->
-{% for Band in Bands %}
-<tr>
-    <!-- Then iterate through every key in the current person dictionary -->
-    {% for key in Band.keys() %}
-
-    <!-- Create a <td> element with the value of that key in it -->
-    <td>{{Band[key]}}</td>
-    {% endfor %}
-</tr>
-{% endfor %}
-</table>
+    </table>
+</html>
