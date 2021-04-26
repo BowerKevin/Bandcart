@@ -25,7 +25,7 @@ def bands():
     query = "SELECT * from Bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("bands.j2", bands=results)
+    return render_template("bands.j2", Bands=results)
 
 # Listener
 

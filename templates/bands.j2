@@ -1,1 +1,16 @@
 <h1>Hello World</h1>
+<table>
+<thead>
+<tr>
+    <!-- Iterate through each key in the first entry to get the
+    column name -->
+    {% for key in Bands[0].keys() %}
+
+    <!-- Create a <th> tag with the key inside of it, this will be
+    our header row -->
+    <th>{{ key }}</th>
+
+    <!-- End of this for loop -->
+    {% endfor %}
+</tr>
+<tbody>

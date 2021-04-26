@@ -8,4 +8,8 @@ create table `Bands` (
     `numMembers` int(11),
     `genre` varchar(255),
     PRIMARY KEY(`bandID`)
+)ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+INSERT INTO `Bands` (`bandName`, `numMembers`, `genre`) VALUES (
+   'Radiohead', 5, 'Progressive Rock / Experimental' 
 );
