@@ -14,3 +14,16 @@
     {% endfor %}
 </tr>
 <tbody>
+
+<!-- Now, iterate through every person in bsg_people -->
+{% for Band in Bands %}
+<tr>
+    <!-- Then iterate through every key in the current person dictionary -->
+    {% for key in Band.keys() %}
+
+    <!-- Create a <td> element with the value of that key in it -->
+    <td>{{Band[key]}}</td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
