@@ -1,0 +1,12 @@
+th, td{
+    border: solid black 1px;
+}
+
+fieldset{
+    border: solid 1px grey;
+    display: inline;
+}
+
+legend{
+    font-weight: bold;
+}

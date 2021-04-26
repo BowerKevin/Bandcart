@@ -20,7 +20,7 @@ def root():
 #     results = cursor.fetchall()
 #     return render_template("bsg.j2", bsg_people=results)
 
-@app.route('/bands')
+@app.route('/bands', methods = ['POST', 'GET'])
 def bands():
     query = "SELECT * from Bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
