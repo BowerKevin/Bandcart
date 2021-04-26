@@ -2,9 +2,12 @@
     <head>
         <link rel="stylesheet" type="text/css" href="./static/css/style.css">
     </head>
+    <h2>Add, Delete, or Update a Band entry</h2>
+    <p>To add a Band, all fields can be NULL except for the Band name.</p>
+
     <form>
         <fieldset>
-            <legend>Add a Band to the Bands Table: </legend>
+            <legend>Add a Band: </legend>
             <label for="bandName">Band name: </label>
             <input type="text" id="bandName" name="bandName">
             <label for="numMembers">Number of Members: </label>
@@ -28,6 +31,8 @@
 
         <!-- End of this for loop -->
         {% endfor %}
+        <th>update</th>
+        <th>delete</th>
     </tr>
     <tbody>
 
@@ -40,7 +45,12 @@
         <!-- Create a <td> element with the value of that key in it -->
         <td>{{Band[key]}}</td>
         {% endfor %}
-    </tr>
+        <td>
+        <button type="button">update</button>
+        </td>
+        <td>
+        <button type="button">delete</button>
+        </td>
     {% endfor %}
     </table>
 </html>
