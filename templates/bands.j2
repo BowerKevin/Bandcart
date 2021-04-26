@@ -17,8 +17,13 @@
             <input type="submit" id="addBand" value="Add">
         </fieldset>
     </form>
+    {% if Bands == () %}
+        <p id="emptyBands">
+            <strong>Database table will display here once at least one Band
+                is added to the database. Do so using the form above.<strong>
+        </p>
+    {% endif %}
     
-
     {% if Bands != () %}
         <table>
         <thead>

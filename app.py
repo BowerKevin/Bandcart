@@ -39,8 +39,6 @@ def bands():
     elif request.method == "DELETE":
         print('we want to delete some data')
 
-
-    
     query = "SELECT * from Bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
@@ -48,7 +46,6 @@ def bands():
     return render_template("bands.j2", Bands=results)
 
 # Listener
-
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 9112)) 
     app.run(port=port, debug=True) 

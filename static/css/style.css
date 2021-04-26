@@ -10,3 +10,7 @@ fieldset{
 legend{
     font-weight: bold;
 }
+
+#emptyBands{
+    color: rgb(199, 0, 0);
+}
