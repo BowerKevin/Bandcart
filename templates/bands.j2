@@ -2,10 +2,10 @@
     <head>
         <link rel="stylesheet" type="text/css" href="./static/css/style.css">
     </head>
-    <h2>Add, Delete, or Update a Band entry</h2>
-    <p>To add a Band, all fields can be NULL except for the Band name.</p>
+    <h2>Add, Update, or Delete a Band</h2>
+    <p>To add a Band, all fields can be NULL except for the <strong>Band name</strong>.</p>
 
-    <form>
+    <form method="POST">
         <fieldset>
             <legend>Add a Band: </legend>
             <label for="bandName">Band name: </label>
@@ -13,7 +13,7 @@
             <label for="numMembers">Number of Members: </label>
             <input type="number" id="numMembers" name="numMembers">
             <label for="genre">Genre: </label>
-            <input type="number" id="genre" name="genre">
+            <input type="text" id="genre" name="genre">
             <input type="submit" id="addBand" value="Add">
         </fieldset>
     </form>

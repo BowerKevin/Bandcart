@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import os
 import database.db_connector as db
 
@@ -22,6 +22,24 @@ def root():
 
 @app.route('/bands', methods = ['POST', 'GET'])
 def bands():
+    if request.method == "POST":
+        print("Hello")
+        bandName = request.form['bandName']
+        numMembers = request.form['numMembers']
+        genre = request.form['genre']
+
+        if bandName == '':
+            return
+        if numMembers == '':
+            numMembers = None
+        if genre == "":
+            genre = None
+        
+        insertQuery = "INSERT INTO `Bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
+        insertTuple = (bandName, numMembers, genre)
+        insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
+        print(insertTuple)
+
     query = "SELECT * from Bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
@@ -31,7 +49,4 @@ def bands():
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 9112)) 
-    #                                 ^^^^
-    #              You can replace this number with any valid port
-    
     app.run(port=port, debug=True) 
