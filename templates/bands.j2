@@ -17,40 +17,44 @@
             <input type="submit" id="addBand" value="Add">
         </fieldset>
     </form>
+    
 
-    <table>
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Bands[0].keys() %}
+    {% if Bands != () %}
+        <table>
+        <thead>
+        <tr>
+            <!-- Iterate through each key in the first entry to get the
+            column name -->
+            {% for key in Bands[0].keys() %}
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+            <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+            <th>{{ key }}</th>
 
-        <!-- End of this for loop -->
+            <!-- End of this for loop -->
+            {% endfor %}
+            <th>update</th>
+            <th>delete</th>
+        </tr>
+        <tbody>
+
+        <!-- Now, iterate through every person in bsg_people -->
+        {% for Band in Bands %}
+        <tr>
+            <!-- Then iterate through every key in the current person dictionary -->
+            {% for key in Band.keys() %}
+
+            <!-- Create a <td> element with the value of that key in it -->
+            <td>{{Band[key]}}</td>
+            {% endfor %}
+            <td>
+            <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
+            <button type="button" method="PUT">update</button>
+            </td>
+            <td>
+            <button type="button" method="DELETE">delete</button>
+            </td>
         {% endfor %}
-        <th>update</th>
-        <th>delete</th>
-    </tr>
-    <tbody>
-
-    <!-- Now, iterate through every person in bsg_people -->
-    {% for Band in Bands %}
-    <tr>
-        <!-- Then iterate through every key in the current person dictionary -->
-        {% for key in Band.keys() %}
-
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{Band[key]}}</td>
-        {% endfor %}
-        <td>
-        <button type="button">update</button>
-        </td>
-        <td>
-        <button type="button">delete</button>
-        </td>
-    {% endfor %}
-    </table>
+        </table>
+    {% endif %}
 </html>
