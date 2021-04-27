@@ -4,7 +4,7 @@
 drop table if exists `Bands`;
 create table `Bands` (
     `bandID` int(11) NOT NULL AUTO_INCREMENT,
-    `bandName` varchar(255) NOT NULL,
+    `bandName` varchar(255) NOT NULL UNIQUE,
     `numMembers` int(11),
     `genre` varchar(255),
     PRIMARY KEY(`bandID`)
@@ -20,7 +20,7 @@ INSERT INTO `Bands` (`bandName`, `numMembers`, `genre` ) VALUES (
 drop table if exists `Events`;
 create table `Events` (
     `eventID` int(11) NOT NULL AUTO_INCREMENT,
-    `eventName` varchar(255) NOT NULL,
+    `eventName` varchar(255) NOT NULL UNIQUE,
     `eventDate` datetime NOT NULL,
     `eventType` varchar(255) NOT NULL,
     `eventLocation` varchar(255) NOT NULL,
@@ -41,14 +41,15 @@ drop table if exists `BandsEvents`;
 create table `BandsEvents` (
     `bandID` int(11),
     `eventID` int(11),
-    PRIMARY KEY(`eid`, `pid`),
-    CONSTRAINT `bandsevents_ibfk_1` FOREIGN KEY (`bandID`) references `Bands` (`bandID`) 
-        ON DELETE SET NULL 
-        ON UPDATE CASCADE,
-    CONSTRAINT `bandsevents_ibfk_2` FOREIGN KEY (`eventID`) references `Events` (`eventID`) 
-        ON DELETE SET NULL 
-        ON UPDATE CASCADE
+    PRIMARY KEY(`bandID`, `eventID`),
+    CONSTRAINT `bandsevents_ibfk_1` FOREIGN KEY (`bandID`) references `Bands` (`bandID`),
+    CONSTRAINT `bandsevents_ibfk_2` FOREIGN KEY (`eventID`) references `Events` (`eventID`)
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+INSERT INTO `BandsEvents` (`bandID`, `eventID`) VALUES (
+(SELECT bandID from Bands where bandName = "Radiohead"),
+(SELECT eventID from Events where eventName = 'Forecastle Festival')
+);
 
 -- ########################################
 -- Table structure for 'Customers' table ##

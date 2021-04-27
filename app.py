@@ -40,7 +40,6 @@ def bands():
     query = "SELECT * from Bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    print(results)
     return render_template("bands.j2", Bands=results)
 
 @app.route('/events', methods = ['POST', 'GET', 'PUT', 'DELETE'])
@@ -66,15 +65,40 @@ def events():
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
 
-            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s,%s);"
+            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`);"
             insertTuple = (eventName, eventDate, eventType, eventLocation, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         
     query = "SELECT * from Events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    print(results)
     return render_template("events.j2", Events=results)
+
+@app.route('/bandsevents', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+def bandsandevents():
+    if request.method == "POST":
+            bandName = request.form['bandName']
+            eventName = request.form['eventName']
+            if bandName == '': bandName = None
+            if eventName == '': eventName = None
+
+            insertQuery = "INSERT INTO `BandsEvents` (`bandID`, `eventID`) VALUES ((SELECT bandID from Bands where bandName = %s),(SELECT eventID from Events where eventName = %s));"
+            insertTuple = (bandName, eventName)
+            insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
+
+    query = """SELECT b.bandName
+                    , e.eventName
+                    , e.eventDate
+                    , e.eventLocation
+                    , e.eventCity
+                    , e.eventState
+                 FROM bandcart.Bands b
+                 LEFT JOIN bandcart.BandsEvents be on b.bandID = be.bandID
+                 LEFT JOIN Events e on e.eventID = be.eventID;"""    
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+    print(results)
+    return render_template("bandsevents.j2", BE=results)
 
 # Listener
 if __name__ == "__main__":
