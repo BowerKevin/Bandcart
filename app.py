@@ -15,9 +15,7 @@ def root():
 
 @app.route('/bands', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def bands():
-    print(request.method)
     if request.method == "POST":
-
         bandName = request.form['bandName']
         numMembers = request.form['numMembers']
         genre = request.form['genre']
@@ -26,7 +24,7 @@ def bands():
             bandName = None
         if numMembers == '':
             numMembers = None
-        if genre == "":
+        if genre == '':
             genre = None
         
         insertQuery = "INSERT INTO `Bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
@@ -44,6 +42,40 @@ def bands():
     results = cursor.fetchall()
     print(results)
     return render_template("bands.j2", Bands=results)
+
+@app.route('/events', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+def events():
+    if request.method == "POST":
+            eventName = request.form['eventName']
+            eventDate = request.form['eventDate']
+            eventType = request.form['eventType']
+            eventLocation = request.form['eventLocation']
+            eventCity = request.form['eventCity']
+            eventState = request.form['eventState']
+
+            if eventName == '': eventName = None
+            if eventDate == '': 
+                eventDate = None
+            elif eventDate != '':
+                date = eventDate[0:10]
+                time = eventDate[11:]
+                time += ':00'
+                eventDate = date + ' ' + time
+            if eventType == '': eventType = None
+            if eventLocation == '': eventLocation = None
+            if eventCity == '': eventCity = None
+            if eventState == '': eventState = None
+
+
+            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s,%s);"
+            insertTuple = (eventName, eventDate, eventType, eventLocation, eventCity, eventState)
+            insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
+        
+    query = "SELECT * from Events;"    
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+    print(results)
+    return render_template("events.j2", Events=results)
 
 # Listener
 if __name__ == "__main__":
