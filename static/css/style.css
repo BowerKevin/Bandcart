@@ -1,7 +1,6 @@
 html{
     background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(49,49,200,1) 30%, rgba(0,212,255,1) 100%);
-    -webkit-text-size-adjust: 100%;
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(49,49,200,1) 27%, rgba(120,120,120,1) 100%);
 }
 
 th, td{
@@ -39,16 +38,16 @@ legend{
 
 .buttonContainer{
     margin: auto 0;
-    display: block;
-    margin-left: 44%;
+    /* display: block;
+    margin-left: 45%; */
 }
 
 /* For header and button styles used code from: https://styleguide.github.com/ */
 /* Div around square buttons */
-
 .py-2 {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
+    text-align:center;
 }
 
 .flex-content-stretch {
