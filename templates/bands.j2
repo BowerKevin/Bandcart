@@ -2,21 +2,29 @@
     <head>
         <link rel="stylesheet" type="text/css" href="./static/css/style.css">
     </head>
-    <h2>Add, Update, or Delete a Band</h2>
-    <p>To add a Band, all fields can be NULL except for the <strong>Band name</strong>.</p>
+    <body>
+        
+    <h1 class="alt-h1 text-center mb-4 mb-md-6">Bands</h1> 
+    <h6 class="alt-h6 text-center mb-4 mb-md-6">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </h6>  
+    
+    <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
-    <form method="POST">
-        <fieldset>
-            <legend>Add a Band: </legend>
-            <label for="bandName">Band name: </label>
-            <input type="text" id="bandName" name="bandName">
-            <label for="numMembers">Number of Members: </label>
-            <input type="number" id="numMembers" name="numMembers">
-            <label for="genre">Genre: </label>
-            <input type="text" id="genre" name="genre">
-            <input type="submit" id="addBand" value="Add">
-        </fieldset>
-    </form>
+        <form method="POST">
+            <fieldset>
+                <legend>Add a Band: </legend>
+                <label for="bandName">Band name: </label>
+                <input type="text" id="bandName" name="bandName">
+                <label for="numMembers">Number of Members: </label>
+                <input type="number" id="numMembers" name="numMembers">
+                <label for="genre">Genre: </label>
+                <input type="text" id="genre" name="genre">
+                <input class="button5" type="submit" id="addBand" value="Add">
+            </fieldset>
+        </form>
+
+    
     {% if Bands == () %}
         <p id="emptyBands">
             <strong>Database table will display here once at least one Band
@@ -25,16 +33,18 @@
     {% endif %}
     
     {% if Bands != () %}
-        <table>
+        <table class="tableCenter">
         <thead>
         <tr>
             <!-- Iterate through each key in the first entry to get the
             column name -->
             {% for key in Bands[0].keys() %}
-
-            <!-- Create a <th> tag with the key inside of it, this will be
-            our header row -->
-            <th>{{ key }}</th>
+                
+                {% if "ID" not in key %}
+                    <!-- Create a <th> tag with the key inside of it, this will be
+                    our header row -->
+                    <th>{{ key }}</th>
+                {% endif %}
 
             <!-- End of this for loop -->
             {% endfor %}
@@ -49,8 +59,11 @@
             <!-- Then iterate through every key in the current person dictionary -->
             {% for key in Band.keys() %}
 
-            <!-- Create a <td> element with the value of that key in it -->
-            <td>{{Band[key]}}</td>
+                {% if "ID" not in key %}
+                    <!-- Create a <td> element with the value of that key in it -->
+                    <td>{{Band[key]}}</td>
+                {% endif %}
+                
             {% endfor %}
             <td>
             <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
@@ -62,4 +75,7 @@
         {% endfor %}
         </table>
     {% endif %}
+
+    </div>
+</body>
 </html>
