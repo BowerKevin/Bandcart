@@ -34,20 +34,51 @@ INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`,
    'Forecastle Festival', '2015-11-05 13:43:16', 'tour', 'Louisville', 'Los', 'KY'
 );
 
+-- #####################################
+-- Table structure for 'BandsEvents' table ##
+-- #####################################
+drop table if exists `BandsEvents`;
+create table `BandsEvents` (
+    `bandID` int(11),
+    `eventID` int(11),
+    PRIMARY KEY(`eid`, `pid`),
+    CONSTRAINT `bandsevents_ibfk_1` FOREIGN KEY (`bandID`) references `Bands` (`bandID`) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE,
+    CONSTRAINT `bandsevents_ibfk_2` FOREIGN KEY (`eventID`) references `Events` (`eventID`) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE
+)ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
 -- ########################################
 -- Table structure for 'Customers' table ##
 -- ########################################
 drop table if exists `Customers`;
-create table bandcart.`Customers` (
+create table `Customers` (
     `customerID` int(11) NOT NULL AUTO_INCREMENT,
     `customerFirst` varchar(255) NOT NULL,
-    `customerLast` datetime NOT NULL,
-    `customerDoB` varchar(255) NOT NULL,
+    `customerLast` varchar(255) NOT NULL,
+    `customerDoB` date NOT NULL,
     `phoneNum` varchar(255) NOT NULL,
-    `email` varchar(255) NOT NULL,
+    `email` varchar(255) NOT NULL
+    PRIMARY KEY(`customerID`)
+)ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+-- ########################################
+-- Table structure for 'Tickets' table ####
+-- ########################################
+drop table if exists `Tickets`;
+create table `Events` (
+    `ticketID` int(11) NOT NULL AUTO_INCREMENT,
+    `orderDate` date NOT NULL,
+    `price` float(4,2) NOT NULL,
+    `customerID` int(11),
     `eventID` int(11),
-    PRIMARY KEY(`customerID`),
-    CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`eventID`) references `Events` (`eventID`) 
+    PRIMARY KEY(`ticketID`),
+    CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`customerID`) references `Customers` (`customerID`) 
         ON DELETE SET NULL 
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`eventID`) references `Events` (`eventID`) 
+        ON DELETE SET NULL 
+        ON UPDATE CASCADE,
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
