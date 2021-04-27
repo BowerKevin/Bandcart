@@ -66,7 +66,6 @@ def events():
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
 
-
             insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s,%s);"
             insertTuple = (eventName, eventDate, eventType, eventLocation, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
