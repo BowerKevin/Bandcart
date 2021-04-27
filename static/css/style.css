@@ -28,6 +28,11 @@ legend{
 
 #emptyBands{
     color: rgb(199, 0, 0);
+    font-size: large;
+    background-color: white;
+    margin: 0px auto 0px auto;
+    text-align: center;
+    display: table;
 }
 
 #mainPage{
@@ -46,9 +51,10 @@ legend{
     align-items: center;
 }
 
-/* .buttonContainer{
-    margin: auto 0;
-} */
+#bands{
+    width: 50px;
+    height: 20px;
+}
 
 .tableCenter{
     margin-left: auto;
@@ -133,11 +139,6 @@ h6{
     }
 }
 /* -------------------------------------------------------------- */
-
-#bands{
-    width: 50px;
-    height: 20px;
-}
 
 /* For the button style below used: https://fdossena.com/?p=html5cool/buttons/i.frag */
 a.button1{

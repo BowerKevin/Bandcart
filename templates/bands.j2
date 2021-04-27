@@ -26,10 +26,10 @@
 
     
     {% if Bands == () %}
-        <p id="emptyBands">
+        <div id="emptyBands">
             <strong>Database table will display here once at least one Band
                 is added to the database. Do so using the form above.<strong>
-        </p>
+        </div>
     {% endif %}
     
     {% if Bands != () %}
@@ -63,7 +63,7 @@
                     <!-- Create a <td> element with the value of that key in it -->
                     <td>{{Band[key]}}</td>
                 {% endif %}
-                
+
             {% endfor %}
             <td>
             <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
