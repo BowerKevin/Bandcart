@@ -102,6 +102,23 @@ def bandsandevents():
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def customers():
+    if request.method == "POST":
+        customerFirst = request.form['customerFirst']
+        customerLast = request.form['customerLast']
+        customerDoB = request.form['customerDoB']
+        phoneNum = request.form['phoneNum']
+        email = request.form['email']
+
+        if customerFirst == '': customerFirst = None
+        if customerLast == '': customerLast = None
+        if phoneNum == '': phoneNum = None
+        if phoneNum == '': phoneNum = None
+        if email == '': email = None
+        
+        insertQuery = "INSERT INTO `Customers` (`customerFirst`, `customerLast`, `customerDoB`,`phoneNum`, `email`) VALUES (%s,%s,%s,%s,%s);"
+        insertTuple = (customerFirst, customerLast, customerDoB, phoneNum, email)
+        insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
+    
 
     query = "SELECT * from Customers;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
