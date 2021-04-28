@@ -23,15 +23,14 @@ create table `Events` (
     `eventName` varchar(255) NOT NULL UNIQUE,
     `eventDate` datetime NOT NULL,
     `eventType` varchar(255) NOT NULL,
-    `eventLocation` varchar(255) NOT NULL,
     `eventCity` varchar(255) NOT NULL,
     `eventState` varchar(255) NOT NULL,
     PRIMARY KEY(`eventID`)
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`,
- `eventLocation`, `eventCity`, `eventState` ) VALUES (
-   'Forecastle Festival', '2015-11-05 13:43:16', 'tour', 'Louisville', 'Los', 'KY'
+   `eventCity`, `eventState` ) VALUES (
+   'Forecastle Festival', '2015-11-05 13:43:16', 'tour', 'Louisville', 'KY'
 );
 
 -- #####################################

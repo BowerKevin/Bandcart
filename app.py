@@ -48,7 +48,6 @@ def events():
             eventName = request.form['eventName']
             eventDate = request.form['eventDate']
             eventType = request.form['eventType']
-            eventLocation = request.form['eventLocation']
             eventCity = request.form['eventCity']
             eventState = request.form['eventState']
 
@@ -61,12 +60,11 @@ def events():
                 time += ':00'
                 eventDate = date + ' ' + time
             if eventType == '': eventType = None
-            if eventLocation == '': eventLocation = None
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
 
-            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s,%s);"
-            insertTuple = (eventName, eventDate, eventType, eventLocation, eventCity, eventState)
+            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s);"
+            insertTuple = (eventName, eventDate, eventType, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         
     query = "SELECT * from Events;"    
