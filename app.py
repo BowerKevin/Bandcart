@@ -87,7 +87,6 @@ def bandsandevents():
     query = """SELECT b.bandName
                     , e.eventName
                     , e.eventDate
-                    , e.eventLocation
                     , e.eventCity
                     , e.eventState
                  FROM Events e
@@ -97,7 +96,6 @@ def bandsandevents():
     query2 = """SELECT b.bandName
                     , e.eventName
                     , e.eventDate
-                    , e.eventLocation
                     , e.eventCity
                     , e.eventState
                  FROM Bands b
