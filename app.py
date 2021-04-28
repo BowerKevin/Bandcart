@@ -92,12 +92,11 @@ def bandsandevents():
                     , e.eventLocation
                     , e.eventCity
                     , e.eventState
-                 FROM bandcart.Bands b
-                 LEFT JOIN bandcart.BandsEvents be on b.bandID = be.bandID
+                 FROM Bands b
+                 LEFT JOIN BandsEvents be on b.bandID = be.bandID
                  LEFT JOIN Events e on e.eventID = be.eventID;"""    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    print(results)
     return render_template("bandsevents.j2", BE=results)
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
@@ -124,6 +123,26 @@ def customers():
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("customers.j2", Customers=results)
+
+@app.route('/tickets', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+def tickets():
+    query = """SELECT t.orderDate
+                    , t.price
+                    , e.eventDate
+                    , e.eventName
+                    , e.eventLocation
+                    , e.eventCity
+                    , e.eventState
+                    , c.customerFirst
+                    , c.customerLast
+                    , c.phoneNum
+                    , c.email
+                 FROM Tickets t
+                 LEFT JOIN Events e on e.eventID = t.eventID
+                 LEFT JOIN Customers c on c.customerID = t.customerID;"""    
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+    return render_template("tickets.j2", Tickets=results)
 
 # Listener
 if __name__ == "__main__":

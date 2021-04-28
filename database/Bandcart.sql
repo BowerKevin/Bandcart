@@ -87,5 +87,5 @@ create table `Events` (
         ON UPDATE CASCADE,
     CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`eventID`) references `Events` (`eventID`) 
         ON DELETE SET NULL 
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
