@@ -141,12 +141,21 @@ def tickets():
                     , c.customerFirst
                     , c.customerLast
                     , c.email
-                 FROM Tickets t
-                 LEFT JOIN Events e on e.eventID = t.eventID
+                 FROM Events e
+                 LEFT JOIN Tickets t on e.eventID = t.eventID
                  LEFT JOIN Customers c on c.customerID = t.customerID;"""    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("tickets.j2", Tickets=results)
+    uniqueEvents = set()
+    uniqueCustomers = set()
+    for x in results:
+        if x.get('eventName') != None:
+            uniqueEvents.add(x.get('eventName'))
+        if x.get('customerFirst') != None:
+            uniqueCustomers.add(x.get('customerFirst') + " " + x.get('customerLast'))
+    print(uniqueCustomers)
+
+    return render_template("tickets.j2", Tickets=results, uniqueEvents=uniqueEvents, uniqueCustomers=uniqueCustomers)
 
 # Listener
 if __name__ == "__main__":

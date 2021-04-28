@@ -16,16 +16,16 @@
                 <legend>Create a Ticket for a Customer for an Event: </legend>
                 <label for="customerName">Choose a Customer: </label>
                 <select name="customerName" id="customerName">
-                    {% for x in Tickets %}
+                    {% for x in uniqueCustomers %}
                         <!-- Then iterate through every key in the current person dictionary -->
-                        <option>{{x.customerFirst}} {{x.customerLast}}</option>
+                        <option>{{x}}</option>
                     {% endfor %}
                 </select>
 
                 <label for="eventName">Choose an Event: </label>
                 <select name="eventName" id="eventName">
-                    {% for x in Tickets %}
-                        <option>{{x.eventName}}</option>
+                    {% for x in uniqueEvents %}
+                        <option>{{x}}</option>
                     {% endfor %}
                 </select>
                 
@@ -64,7 +64,7 @@
 
         <!-- Now, iterate through every person in bsg_people -->
         {% for x in Tickets %}
-            {% if x.bandName != None and x.eventName != None %}
+            {% if x.customerFirst != None %}
             <tr>
                 <!-- Then iterate through every key in the current person dictionary -->
                 {% for key in x.keys() %}
