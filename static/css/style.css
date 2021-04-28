@@ -197,14 +197,14 @@ a.homeButton:hover{
 input[type=submit]{
     display:inline-block;
     padding:0.2em 1.0em;
-    border:0.1em solid #000000;
+    border:0.1em solid grey;
     margin:0 0.2em 0.2em 0;
     border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     font-weight:300;
-    color:black;
+    color:grey;
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     background-color:lightgreen;
     text-align:center;
@@ -213,7 +213,7 @@ input[type=submit]{
 
 input[type=submit]:hover{
     text-shadow: 0 0 2em rgba(255,255,255,1);
-    color:grey;
-    border-color:grey;
+    color:black;
+    border-color:black;
 }
 /* --------------------------------------------------- */

@@ -121,7 +121,7 @@ def bandsandevents():
     for x in results2:
         if x.get('bandName') != None:
             uniqueBands.add(x.get('bandName'))
-            
+
     return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
