@@ -1,7 +1,9 @@
 html{
-    background-image: linear-gradient(to left top, #a11665, #a32e83, #9e44a1, #9259bd, #7e6dd7, #6d6dd5, #5b6dd2, #466ccf, #4058b4, #384599, #2f3380, #252267);
+    /* background-image: linear-gradient(to left top, #a11665, #a32e83, #9e44a1, #9259bd, #7e6dd7, #6d6dd5, #5b6dd2, #466ccf, #4058b4, #384599, #2f3380, #252267); */
     font-family: Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
-        
+    /* background-image: linear-gradient(to right bottom, #005eeb, #1652ee, #2c44ee, #4132ee, #5412eb);     */
+    /* background-image: linear-gradient(to right bottom, #004bbb, #2f4ecb, #4c50da, #6751e7, #8250f4); */
+    background-image: linear-gradient(to left top, #370020, #36032a, #330733, #2d0e3d, #231547, #231e56, #202766, #163176, #254191, #3451ae, #4462cb, #5373e9);
 }
 
 th, td{
@@ -22,7 +24,7 @@ label, fieldset{
 }
 
 fieldset{
-    border: solid 1px black;
+    border: solid 1px whitesmoke;
     display: inline;
 }
 
