@@ -61,9 +61,15 @@ create table `Customers` (
     `customerLast` varchar(255) NOT NULL,
     `customerDoB` date NOT NULL,
     `phoneNum` varchar(255) NOT NULL,
-    `email` varchar(255) NOT NULL
-    PRIMARY KEY(`customerID`)
+    `email` varchar(255) NOT NULL,
+    PRIMARY KEY(`customerID`),
+    constraint full_name unique (`customerFirst`,`customerLast`,`customerDoB`)
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+INSERT INTO `Customers` (`customerFirst`, `customerLast`, `customerDoB`,
+ `phoneNum`, `email`) VALUES (
+   'Kevin', 'Santi', '1996-03-11', '123-456-7890', 'fakemail@123.com'
+);
 
 -- ########################################
 -- Table structure for 'Tickets' table ####
