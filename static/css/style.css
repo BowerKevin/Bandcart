@@ -145,6 +145,13 @@ h6{
 /* -------------------------------------------------------------- */
 
 /* For the button style below used: https://fdossena.com/?p=html5cool/buttons/i.frag */
+@media all and (max-width:30em){
+    a.button1{
+        display:block;
+        margin:0.4em auto;
+    }
+}
+
 a.button1{
     display:inline-block;
     padding:0.35em 1.2em;
@@ -164,14 +171,29 @@ a.button1:hover{
     color:#000000;
     background-color:#FFFFFF;
 }
-    
-@media all and (max-width:30em){
-    a.button1{
-        display:block;
-        margin:0.4em auto;
-    }
+
+a.homeButton{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:.5em 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
 }
 
+a.homeButton:hover{
+    color:#000000;
+    background-color:#5bc0de;
+    border: 0.1em solid #000000;
+    ;
+}
+    
 input[type=submit]{
     display:inline-block;
     padding:0.2em 1.0em;

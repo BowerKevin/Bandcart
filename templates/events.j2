@@ -38,56 +38,62 @@
         </form>
 
     
-    {% if Events == () %}
-        <div id="emptyBands">
-            <strong>Database table will display here once at least one Event
-                is added to the database. Do so using the form above.<strong>
-        </div>
-    {% endif %}
+        {% if Events == () %}
+            <div id="emptyBands">
+                <strong>Database table will display here once at least one Event
+                    is added to the database. Do so using the form above.<strong>
+            </div>
+        {% endif %}
     
-    {% if Events != () %}
-        <table class="tableCenter">
-        <thead>
-        <tr>
-            <!-- Iterate through each key in the first entry to get the
-            column name -->
-            {% for key in Events[0].keys() %}
-                
-                {% if "ID" not in key %}
-                    <!-- Create a <th> tag with the key inside of it, this will be
-                    our header row -->
-                    <th>{{ key }}</th>
-                {% endif %}
+        {% if Events != () %}
+            <table class="tableCenter">
+            <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in Events[0].keys() %}
+                    
+                    {% if "ID" not in key %}
+                        <!-- Create a <th> tag with the key inside of it, this will be
+                        our header row -->
+                        <th>{{ key }}</th>
+                    {% endif %}
 
-            <!-- End of this for loop -->
+                <!-- End of this for loop -->
+                {% endfor %}
+                <th>update</th>
+                <th>delete</th>
+            </tr>
+            <tbody>
+
+            <!-- Now, iterate through every person in bsg_people -->
+            {% for Event in Events %}
+            <tr>
+                <!-- Then iterate through every key in the current person dictionary -->
+                {% for key in Event.keys() %}
+
+                    {% if "ID" not in key %}
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{Event[key]}}</td>
+                    {% endif %}
+
+                {% endfor %}
+                <td>
+                <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
+                <button type="button" method="PUT">update</button>
+                </td>
+                <td>
+                <button type="button" method="DELETE">delete</button>
+                </td>
             {% endfor %}
-            <th>update</th>
-            <th>delete</th>
-        </tr>
-        <tbody>
+            </table>
+        {% endif %}
 
-        <!-- Now, iterate through every person in bsg_people -->
-        {% for Event in Events %}
-        <tr>
-            <!-- Then iterate through every key in the current person dictionary -->
-            {% for key in Event.keys() %}
-
-                {% if "ID" not in key %}
-                    <!-- Create a <td> element with the value of that key in it -->
-                    <td>{{Event[key]}}</td>
-                {% endif %}
-
-            {% endfor %}
-            <td>
-            <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
-            <button type="button" method="PUT">update</button>
-            </td>
-            <td>
-            <button type="button" method="DELETE">delete</button>
-            </td>
-        {% endfor %}
-        </table>
-    {% endif %}
+        <div class="buttonContainer">
+            <a href="/" class="homeButton">
+                Home
+            </a> 
+        </div>
 
     </div>
 </body>
