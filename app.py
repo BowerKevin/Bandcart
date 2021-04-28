@@ -65,7 +65,7 @@ def events():
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
 
-            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`);"
+            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventLocation`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s,%s);"
             insertTuple = (eventName, eventDate, eventType, eventLocation, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         
@@ -99,7 +99,9 @@ def bandsandevents():
     results = cursor.fetchall()
     uniqueEvents = set()
     for x in results:
-        uniqueEvents.add(x.get('eventName'))
+        if x.get('eventName') != None:
+            uniqueEvents.add(x.get('eventName'))
+    print(uniqueEvents)
     return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents)
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
