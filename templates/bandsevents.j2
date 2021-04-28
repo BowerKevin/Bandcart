@@ -16,8 +16,8 @@
                 <legend>Associate a Band with an Event: </legend>
                 <label for="bandName">Choose a Band: </label>
                 <select name="bandName" id="bandName">
-                    {% for x in BE %}
-                        <option>{{x.bandName}}</option>
+                    {% for x in uniqueBands %}
+                        <option>{{x}}</option>
                     {% endfor %}
                 </select>
 
