@@ -135,12 +135,12 @@ def customers():
         if phoneNum == '': phoneNum = None
         if email == '': email = None
         
-        insertQuery = "INSERT INTO `Customers` (`customerFirst`, `customerLast`, `customerDoB`,`phoneNum`, `email`) VALUES (%s,%s,%s,%s,%s);"
+        insertQuery = "INSERT INTO `customers` (`customerFirst`, `customerLast`, `customerDoB`,`phoneNum`, `email`) VALUES (%s,%s,%s,%s,%s);"
         insertTuple = (customerFirst, customerLast, customerDoB, phoneNum, email)
         insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
     
 
-    query = "SELECT * from Customers;"
+    query = "SELECT * from customers;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("customers.j2", Customers=results)
@@ -158,7 +158,7 @@ def tickets():
         price = request.form['price']
         numTickets = request.form['numTickets']
 
-        insertQuery = """INSERT INTO `Tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
+        insertQuery = """INSERT INTO `tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
         (%s, %s, %s,
         (SELECT customerID from customers where customerFirst = %s and customerLast = %s),
         (SELECT eventID from events where eventName = %s));"""
