@@ -14,30 +14,18 @@
         <form method="POST">
             <fieldset>
                 <legend>Create a Ticket for a Customer for an Event: </legend>
-                <label for="bandName">Choose a Band: </label>
-                <select name="bandName" id="bandName">
+                <label for="customerName">Choose a Customer: </label>
+                <select name="customerName" id="customerName">
                     {% for x in Tickets %}
                         <!-- Then iterate through every key in the current person dictionary -->
-                        {% for key in x.keys() %}
-                            {% if key == "customerName" %}
-                                <!-- Create a <td> element with the value of that key in it -->
-                                <option>{{x[key]}}</option>
-                            {% endif %}
-                        {% endfor %}
+                        <option>{{x.customerFirst}} {{x.customerLast}}</option>
                     {% endfor %}
                 </select>
 
-                
                 <label for="eventName">Choose an Event: </label>
                 <select name="eventName" id="eventName">
                     {% for x in Tickets %}
-                        <!-- Then iterate through every key in the current person dictionary -->
-                        {% for key in x.keys() %}
-                            {% if key == "eventName" and x[key] != None %}
-                                <!-- Create a <td> element with the value of that key in it -->
-                                <option>{{x[key]}}</option>
-                            {% endif %}
-                        {% endfor %}
+                        <option>{{x.eventName}}</option>
                     {% endfor %}
                 </select>
                 

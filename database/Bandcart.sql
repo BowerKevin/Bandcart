@@ -78,7 +78,7 @@ drop table if exists `Tickets`;
 create table `Events` (
     `ticketID` int(11) NOT NULL AUTO_INCREMENT,
     `orderDate` date NOT NULL,
-    `price` float(4,2) NOT NULL,
+    `price` float(20,2) NOT NULL,
     `customerID` int(11),
     `eventID` int(11),
     PRIMARY KEY(`ticketID`),
@@ -89,3 +89,9 @@ create table `Events` (
         ON DELETE SET NULL 
         ON UPDATE CASCADE
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+INSERT INTO `Tickets` (`orderDate`, `price`, `customerID`, `eventID`) VALUES (
+'2021-04-27', '300.85',
+(SELECT customerID from Customers where customerFirst = "Kevin" and customerLast ="Santi" and customerDoB="1996-03-11"),
+(SELECT eventID from Events where eventName = 'Forecastle Festival')
+);

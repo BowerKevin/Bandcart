@@ -97,7 +97,10 @@ def bandsandevents():
                  LEFT JOIN Events e on e.eventID = be.eventID;"""    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("bandsevents.j2", BE=results)
+    uniqueEvents = set()
+    for x in results:
+        uniqueEvents.add(x.get('eventName'))
+    return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents)
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def customers():
@@ -130,12 +133,8 @@ def tickets():
                     , t.price
                     , e.eventDate
                     , e.eventName
-                    , e.eventLocation
-                    , e.eventCity
-                    , e.eventState
                     , c.customerFirst
                     , c.customerLast
-                    , c.phoneNum
                     , c.email
                  FROM Tickets t
                  LEFT JOIN Events e on e.eventID = t.eventID
