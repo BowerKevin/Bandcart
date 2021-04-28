@@ -94,17 +94,34 @@ def bandsandevents():
                     , e.eventState
                  FROM Events e
                  LEFT JOIN BandsEvents be on e.eventID = be.eventID
-                 LEFT JOIN Bands b on b.bandID = be.bandID;"""    
+                 LEFT JOIN Bands b on b.bandID = be.bandID;"""
+
+    query2 = """SELECT b.bandName
+                    , e.eventName
+                    , e.eventDate
+                    , e.eventLocation
+                    , e.eventCity
+                    , e.eventState
+                 FROM Bands b
+                 LEFT JOIN BandsEvents be on b.bandID = be.bandID
+                 LEFT JOIN Events e on e.eventID = be.eventID;"""
+
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
+    cursor2 = db.execute_query(db_connection=db_connection, query=query2)
+    results2 = cursor2.fetchall()
+    
     uniqueEvents = set()
     uniqueBands = set()
+
     for x in results:
         if x.get('eventName') != None:
             uniqueEvents.add(x.get('eventName'))
+    
+    for x in results2:
         if x.get('bandName') != None:
             uniqueBands.add(x.get('bandName'))
-    print(uniqueEvents)
+            
     return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
 
 @app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
