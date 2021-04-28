@@ -27,7 +27,7 @@ def bands():
         if genre == '':
             genre = None
         
-        insertQuery = "INSERT INTO `Bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
+        insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
         insertTuple = (bandName, numMembers, genre)
         insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
     
@@ -37,7 +37,7 @@ def bands():
     elif request.method == "DELETE":
         print('we want to delete some data')
 
-    query = "SELECT * from Bands;"
+    query = "SELECT * from bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("bands.j2", Bands=results)
@@ -63,11 +63,11 @@ def events():
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
 
-            insertQuery = "INSERT INTO `Events` (`eventName`, `eventDate`, `eventType`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s);"
+            insertQuery = "INSERT INTO `events` (`eventName`, `eventDate`, `eventType`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s);"
             insertTuple = (eventName, eventDate, eventType, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         
-    query = "SELECT * from Events;"    
+    query = "SELECT * from events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     return render_template("events.j2", Events=results)
@@ -80,7 +80,7 @@ def bandsandevents():
             if bandName == '': bandName = None
             if eventName == '': eventName = None
 
-            insertQuery = "INSERT INTO `BandsEvents` (`bandID`, `eventID`) VALUES ((SELECT bandID from Bands where bandName = %s),(SELECT eventID from Events where eventName = %s));"
+            insertQuery = "INSERT INTO `bandsevents` (`bandID`, `eventID`) VALUES ((SELECT bandID from bands where bandName = %s),(SELECT eventID from events where eventName = %s));"
             insertTuple = (bandName, eventName)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
 
@@ -89,18 +89,18 @@ def bandsandevents():
                     , e.eventDate
                     , e.eventCity
                     , e.eventState
-                 FROM Events e
-                 LEFT JOIN BandsEvents be on e.eventID = be.eventID
-                 LEFT JOIN Bands b on b.bandID = be.bandID;"""
+                 FROM events e
+                 LEFT JOIN bandsevents be on e.eventID = be.eventID
+                 LEFT JOIN bands b on b.bandID = be.bandID;"""
 
     query2 = """SELECT b.bandName
                     , e.eventName
                     , e.eventDate
                     , e.eventCity
                     , e.eventState
-                 FROM Bands b
-                 LEFT JOIN BandsEvents be on b.bandID = be.bandID
-                 LEFT JOIN Events e on e.eventID = be.eventID;"""
+                 FROM bands b
+                 LEFT JOIN bandsevents be on b.bandID = be.bandID
+                 LEFT JOIN events e on e.eventID = be.eventID;"""
 
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
@@ -160,8 +160,8 @@ def tickets():
 
         insertQuery = """INSERT INTO `Tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
         (%s, %s, %s,
-        (SELECT customerID from bandcart.Customers where customerFirst = %s and customerLast = %s),
-        (SELECT eventID from bandcart.Events where eventName = %s));"""
+        (SELECT customerID from customers where customerFirst = %s and customerLast = %s),
+        (SELECT eventID from events where eventName = %s));"""
         insertTuple = (orderDate, price, numTickets, customerFirst, customerLast, eventName)
         insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
 
@@ -174,9 +174,9 @@ def tickets():
                     , c.customerFirst
                     , c.customerLast
                     , c.email
-                 FROM Events e
-                 LEFT JOIN Tickets t on e.eventID = t.eventID
-                 LEFT JOIN Customers c on c.customerID = t.customerID;"""  
+                 FROM events e
+                 LEFT JOIN tickets t on e.eventID = t.eventID
+                 LEFT JOIN customers c on c.customerID = t.customerID;"""  
 
     query2 = """SELECT t.orderDate
                     , t.price
@@ -186,9 +186,9 @@ def tickets():
                     , c.customerFirst
                     , c.customerLast
                     , c.email
-                 FROM Customers c
-                 LEFT JOIN Tickets t on c.customerID = t.customerID
-                 LEFT JOIN Events e on t.eventID = e.eventID;"""  
+                 FROM customers c
+                 LEFT JOIN tickets t on c.customerID = t.customerID
+                 LEFT JOIN events e on t.eventID = e.eventID;"""  
     
     cursor = db.execute_query(db_connection=db_connection, query=query1)
     results = cursor.fetchall()
