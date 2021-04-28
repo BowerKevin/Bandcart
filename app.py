@@ -134,8 +134,28 @@ def customers():
 
 @app.route('/tickets', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def tickets():
-    query = """SELECT t.orderDate
+    if request.method == "POST":
+        customerName = request.form['customerName']
+        eventName = request.form['eventName']
+        custList = customerName.split(' ')
+        customerFirst = custList[0]
+        customerLast = custList[1]
+
+        orderDate = request.form['orderDate']
+        price = request.form['price']
+        numTickets = request.form['numTickets']
+
+        insertQuery = """INSERT INTO `Tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
+        (%s, %s, %s,
+        (SELECT customerID from bandcart.Customers where customerFirst = %s and customerLast = %s),
+        (SELECT eventID from bandcart.Events where eventName = %s));"""
+        insertTuple = (orderDate, price, numTickets, customerFirst, customerLast, eventName)
+        insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
+
+        
+    query1 = """SELECT t.orderDate
                     , t.price
+                    , t.numTickets
                     , e.eventDate
                     , e.eventName
                     , c.customerFirst
@@ -143,14 +163,31 @@ def tickets():
                     , c.email
                  FROM Events e
                  LEFT JOIN Tickets t on e.eventID = t.eventID
-                 LEFT JOIN Customers c on c.customerID = t.customerID;"""    
-    cursor = db.execute_query(db_connection=db_connection, query=query)
+                 LEFT JOIN Customers c on c.customerID = t.customerID;"""  
+
+    query2 = """SELECT t.orderDate
+                    , t.price
+                    , t.numTickets
+                    , e.eventDate
+                    , e.eventName
+                    , c.customerFirst
+                    , c.customerLast
+                    , c.email
+                 FROM Customers c
+                 LEFT JOIN Tickets t on c.customerID = t.customerID
+                 LEFT JOIN Events e on t.eventID = e.eventID;"""  
+    
+    cursor = db.execute_query(db_connection=db_connection, query=query1)
     results = cursor.fetchall()
+    cursor2 = db.execute_query(db_connection=db_connection, query=query2)
+    results2 = cursor2.fetchall()
+
     uniqueEvents = set()
     uniqueCustomers = set()
     for x in results:
         if x.get('eventName') != None:
             uniqueEvents.add(x.get('eventName'))
+    for x in results2:
         if x.get('customerFirst') != None:
             uniqueCustomers.add(x.get('customerFirst') + " " + x.get('customerLast'))
     print(uniqueCustomers)
