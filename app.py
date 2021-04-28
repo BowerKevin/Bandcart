@@ -100,6 +100,14 @@ def bandsandevents():
     print(results)
     return render_template("bandsevents.j2", BE=results)
 
+@app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+def customers():
+
+    query = "SELECT * from Customers;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+    return render_template("customers.j2", Customers=results)
+
 # Listener
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 9112)) 

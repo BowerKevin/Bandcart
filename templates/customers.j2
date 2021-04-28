@@ -4,7 +4,7 @@
     </head>
     <body>
         
-    <h1 class="alt-h1 text-center mb-4 mb-md-6">Events</h1> 
+    <h1 class="alt-h1 text-center mb-4 mb-md-6">Customers</h1> 
     <h6 class="alt-h6 text-center mb-4 mb-md-6">
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
     </h6>  
@@ -13,45 +13,38 @@
 
         <form method="POST">
             <fieldset>
-                <legend>Add an Event: </legend>
-                <label for="eventName">Event Name: </label>
-                <input type="text" id="eventName" name="eventName">
-                <label for="eventDate">Date of Event: </label>
-                <input type="datetime-local" id="eventDate" name="eventDate">
-                <label for="eventType">Type of Event: </label>
+                <legend>Add an Customer: </legend>
+                <label for="customerFirst">First Name: </label>
+                <input type="text" id="customerFirst" name="customerFirst">
+                <label for="customerLast">Last Name: </label>
+                <input type="text" id="customerLast" name="customerLast">
+                <label for="customerDoB">Date of Birth: </label>
+                <input type="date" id="customerDoB" name="customerDoB">
 
-                <input type="radio" id="eventType" name="eventType" value="Tour">
-                <label for="Tour">Tour</label>
-                <input type="radio" id="eventType" name="eventType" value="Concert">
-                <label for="Concert">Concert</label>
-            
                 <hr>
-            
-                <label for="eventLocation">Location: </label>
-                <input type="text" id="eventLocation" name="eventLocation">
-                <label for="eventCity">City: </label>
-                <input type="text" id="eventCity" name="eventCity">
-                <label for="eventState">State: </label>
-                <input type="text" id="eventState" name="eventState">
-                <input class="button5" type="submit" id="addBand" value="Add">
+
+                <label for="phoneNum">Phone Number: </label>
+                <input type="tel" id="phoneNum" name="phoneNum">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email">
             </fieldset>
         </form>
 
     
-    {% if Events == () %}
+    {% if Customers == () %}
         <div id="emptyBands">
-            <strong>Database table will display here once at least one Event
+            <strong>Database table will display here once at least one Customer
                 is added to the database. Do so using the form above.<strong>
         </div>
     {% endif %}
     
-    {% if Events != () %}
+    {% if Customers != () %}
         <table class="tableCenter">
         <thead>
         <tr>
             <!-- Iterate through each key in the first entry to get the
             column name -->
-            {% for key in Events[0].keys() %}
+            {% for key in Customers[0].keys() %}
                 
                 {% if "ID" not in key %}
                     <!-- Create a <th> tag with the key inside of it, this will be
@@ -67,14 +60,14 @@
         <tbody>
 
         <!-- Now, iterate through every person in bsg_people -->
-        {% for Event in Events %}
+        {% for Customer in Customers %}
         <tr>
             <!-- Then iterate through every key in the current person dictionary -->
-            {% for key in Event.keys() %}
+            {% for key in Customer.keys() %}
 
                 {% if "ID" not in key %}
                     <!-- Create a <td> element with the value of that key in it -->
-                    <td>{{Event[key]}}</td>
+                    <td>{{Customer[key]}}</td>
                 {% endif %}
 
             {% endfor %}
