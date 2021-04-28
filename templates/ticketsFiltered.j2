@@ -4,60 +4,14 @@
     </head>
     <body>
         
-    <h1 class="alt-h1 text-center mb-4 mb-md-6">Tickets</h1> 
+    <h1 class="alt-h1 text-center mb-4 mb-md-6">Filtered Tickets</h1> 
     <h6 class="alt-h6 text-center mb-4 mb-md-6">
-        Purchase Tickets for an Events! Enter in all information, set your own
-        price for Tickets and make sure you have bought enough for friends.
+        Scroll through the Tickets purchased for the Event you have
+        selected. Return to the Home page once you are done.
     </h6>  
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
-        <form method="POST">
-            <fieldset>
-                <legend>Create a Ticket for a Customer for an Event: </legend>
-                <label for="customerName">Choose a Customer: </label>
-                <select name="customerName" id="customerName">
-                    {% for x in uniqueCustomers %}
-                        <!-- Then iterate through every key in the current person dictionary -->
-                        <option>{{x}}</option>
-                    {% endfor %}
-                </select>
-
-                <label for="eventName">Choose an Event: </label>
-                <select name="eventName" id="eventName">
-                    {% for x in uniqueEvents %}
-                        <option>{{x}}</option>
-                    {% endfor %}
-                </select>
-
-                <hr>
-
-                <label for="orderDate">Date: </label>
-                <input type="date" id="orderDate" name="orderDate">
-                <label for="price">Price: $</label>
-                <input type="number" step="0.01" id="price" name="price">
-                <label for="numTickets">Number of Tickets: </label>
-                <input type="text" id="numTickets" name="numTickets">
-                
-                <input class="button5" type="submit" id="addBandEvent" value="Add">
-            </fieldset>
-        </form>
-
-    
-        <form method="POST" value="filter">
-            <fieldset>
-                <legend>Filter by Event: </legend>
-                <label for="filterEvent">Choose an Event: </label>
-                    <select name="filterEvent" id="filterEvent">
-                        {% for x in uniqueEvents %}
-                            <option>{{x}}</option>
-                        {% endfor %}
-                    </select>
-                    <input class="button5" type="submit" id="addBand" value="Search">
-            </fieldset>
-        </form>
-
-    
     {% if Tickets == () %}
         <div id="emptyBands">
             <strong>Database table will display here once at least one Ticket

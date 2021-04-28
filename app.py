@@ -148,24 +148,43 @@ def customers():
 @app.route('/tickets', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def tickets():
     if request.method == "POST":
-        customerName = request.form['customerName']
-        eventName = request.form['eventName']
-        custList = customerName.split(' ')
-        customerFirst = custList[0]
-        customerLast = custList[1]
+        if "filterEvent" in request.form:
+            filterEvent = request.form['filterEvent']
+            query1 = """SELECT t.orderDate
+                    , t.price
+                    , t.numTickets
+                    , e.eventDate
+                    , e.eventName
+                    , c.customerFirst
+                    , c.customerLast
+                    , c.email
+                 FROM events e
+                 LEFT JOIN tickets t on e.eventID = t.eventID
+                 LEFT JOIN customers c on c.customerID = t.customerID
+                 WHERE eventName = %s;""" 
+            insertTuple = (filterEvent, )
+            print(insertTuple)
+            cursor = db.execute_query(db_connection=db_connection, query=query1, query_params=insertTuple)
+            results = cursor.fetchall()
+            return render_template("ticketsFiltered.j2", Tickets=results)
+        else:
+            customerName = request.form['customerName']
+            eventName = request.form['eventName']
+            custList = customerName.split(' ')
+            customerFirst = custList[0]
+            customerLast = custList[1]
 
-        orderDate = request.form['orderDate']
-        price = request.form['price']
-        numTickets = request.form['numTickets']
+            orderDate = request.form['orderDate']
+            price = request.form['price']
+            numTickets = request.form['numTickets']
 
-        insertQuery = """INSERT INTO `tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
-        (%s, %s, %s,
-        (SELECT customerID from customers where customerFirst = %s and customerLast = %s),
-        (SELECT eventID from events where eventName = %s));"""
-        insertTuple = (orderDate, price, numTickets, customerFirst, customerLast, eventName)
-        insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
+            insertQuery = """INSERT INTO `tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
+            (%s, %s, %s,
+            (SELECT customerID from customers where customerFirst = %s and customerLast = %s),
+            (SELECT eventID from events where eventName = %s));"""
+            insertTuple = (orderDate, price, numTickets, customerFirst, customerLast, eventName)
+            insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
 
-        
     query1 = """SELECT t.orderDate
                     , t.price
                     , t.numTickets
@@ -203,7 +222,6 @@ def tickets():
     for x in results2:
         if x.get('customerFirst') != None:
             uniqueCustomers.add(x.get('customerFirst') + " " + x.get('customerLast'))
-    print(uniqueCustomers)
 
     return render_template("tickets.j2", Tickets=results, uniqueEvents=uniqueEvents, uniqueCustomers=uniqueCustomers)
 
