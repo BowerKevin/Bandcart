@@ -65,9 +65,8 @@ create table `Customers` (
     constraint full_name unique (`customerFirst`,`customerLast`,`customerDoB`)
 )ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
-INSERT INTO `Customers` (`customerFirst`, `customerLast`, `customerDoB`,
- `phoneNum`, `email`) VALUES (
-   'Kevin', 'Santi', '1996-03-11', '123-456-7890', 'fakemail@123.com'
+INSERT INTO `Customers` (`customerFirst`, `customerLast`, `customerDoB`, `phoneNum`, `email`) 
+VALUES ('Kevin', 'Santi', '1996-03-11', '123-456-7890', 'fakemail@123.com'
 );
 
 -- ########################################
