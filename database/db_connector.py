@@ -15,6 +15,7 @@ def connect_to_database(host = host, user = user, passwd = passwd, db = db):
     '''
     connects to a database and returns a database objects
     '''
+    
     db_connection = MySQLdb.connect(host,user,passwd,db)
     return db_connection
 
@@ -26,6 +27,7 @@ def execute_query(db_connection = None, query = None, query_params = ()):
     returns: A Cursor object as specified at https://www.python.org/dev/peps/pep-0249/#cursor-objects.
     You need to run .fetchall() or .fetchone() on that object to actually acccess the results.
     '''
+    db_connection.ping(True)
 
     if db_connection is None:
         print("No connection to the database found! Have you called connect_to_database() first?")
