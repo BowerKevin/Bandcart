@@ -67,9 +67,12 @@
 
             {% endfor %}
             <td>
-            <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
-            <button type="button" method="PUT">update</button>
+                <form method = "POST" class = "insert">
+                    <input class="button5" type="submit" value="update" name="{{ Band[ID] }}">
+                    <input type="hidden" name="PUT" value= {{ Band["bandID"] }}>
+                </form>
             </td>
+
             <td>
             <button type="button" method="DELETE">delete</button>
             </td>

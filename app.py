@@ -16,26 +16,25 @@ def root():
 @app.route('/bands', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def bands():
     if request.method == "POST":
-        bandName = request.form['bandName']
-        numMembers = request.form['numMembers']
-        genre = request.form['genre']
+        if "bandName" in request.form:
+            bandName = request.form['bandName']
+            numMembers = request.form['numMembers']
+            genre = request.form['genre']
 
-        if bandName == '':
-            bandName = None
-        if numMembers == '':
-            numMembers = None
-        if genre == '':
-            genre = None
-        
-        insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
-        insertTuple = (bandName, numMembers, genre)
-        insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
-    
-    elif request.method == "PUT":
-        print('we want to modify some data')
-    
-    elif request.method == "DELETE":
-        print('we want to delete some data')
+            if bandName == '':
+                bandName = None
+            if numMembers == '':
+                numMembers = None
+            if genre == '':
+                genre = None
+            
+            insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
+            insertTuple = (bandName, numMembers, genre)
+            insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
+        elif "PUT" in request.form:
+            print("########################################")
+            print(request.form["PUT"])
+            print("########################################")
 
     query = "SELECT * from bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)

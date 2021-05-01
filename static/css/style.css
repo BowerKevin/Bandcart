@@ -73,6 +73,10 @@ footer {
     width: 100%;
 }
 
+.insert{
+    margin: auto 0;
+}
+
 /* For header and button styles used code from: https://styleguide.github.com/ */
 /* Div around square buttons */
 .py-2 {
