@@ -12,6 +12,7 @@
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
+    {% if not PUT %}
         <form method="POST">
             <fieldset>
                 <legend>Add a Band: </legend>
@@ -21,10 +22,11 @@
                 <input type="number" id="numMembers" name="numMembers">
                 <label for="genre">Genre: </label>
                 <input type="text" id="genre" name="genre">
-                <input class="button5" type="submit" id="addBand" value="Add">
+                <input class="addRecord" type="submit" id="addBand" value="Add">
             </fieldset>
         </form>
-    
+    {% endif %}
+
     {% if PUT %}
         <form method="POST">
             <fieldset class="updateBox">
@@ -35,7 +37,7 @@
                 <input type="number" id="numMembersU" name="numMembersU" value="{{ Bresults[0]['numMembers'] }}">
                 <label for="genreU">Genre: </label>
                 <input type="text" id="genreU" name="genreU" value="{{ Bresults[0]['genre'] }}">
-                <input class="button5" type="submit" id="addBand" value="Update" name="updateRequest">
+                <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">
                 <input type="hidden" name="bandIDU" value= "{{ Bresults[0]['bandID'] }}">
             </fieldset>
         </form>
@@ -83,7 +85,7 @@
             {% endfor %}
             <td>
                 <form method="POST" class="insert">
-                    <input class="button5" type="submit" value="update" name="{{ Band[ID] }}">
+                    <input class="updateButton" type="submit" value="update" name="{{ Band[ID] }}">
                     <input type="hidden" name="PUT" value= {{ Band["bandID"] }}>
                 </form>
             </td>
