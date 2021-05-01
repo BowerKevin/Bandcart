@@ -67,6 +67,12 @@ legend{
     margin-right: auto;
 }
 
+footer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
 /* For header and button styles used code from: https://styleguide.github.com/ */
 /* Div around square buttons */
 .py-2 {
@@ -190,6 +196,50 @@ a.homeButton{
 }
 
 a.homeButton:hover{
+    color:#000000;
+    background-color:#5bc0de;
+    border: 0.1em solid #000000;
+    ;
+}
+
+a.navButton{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:.5em 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+a.navButton:hover{
+    color:#000000;
+    background-color:#5bc0de;
+    border: 0.1em solid #000000;
+    ;
+}
+
+a.navButtonUsed{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #5bc0de;
+    margin:.5em 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color:#5bc0de;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+a.navButtonUsed:hover{
     color:#000000;
     background-color:#5bc0de;
     border: 0.1em solid #000000;
