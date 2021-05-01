@@ -35,13 +35,22 @@ def bands():
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         elif "PUT" in request.form:
             PUT = True
-            bandID = (request.form["PUT"])
+            bandID = request.form["PUT"]
             print(bandID)
             bandQuery = "SELECT * from bands where bandID = %s;"
             bandTuple = (bandID, )
             cursor = db.execute_query(db_connection=db_connection, query=bandQuery, query_params=bandTuple)
             Bresults = cursor.fetchall()
-
+        elif "updateRequest" in request.form:
+            bandID = request.form["bandIDU"]
+            bandName = request.form["bandNameU"]
+            numMembers = request.form["numMembersU"]
+            genre = request.form["genreU"]
+            updateTuple = (bandName, numMembers, genre, bandID)
+            print(updateTuple)
+            updateQuery = "UPDATE `bands` SET `bandName` = %s, `numMembers` = %s, `genre` = %s where `bandID` = %s;"
+            cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
+            
     query = "SELECT * from bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()

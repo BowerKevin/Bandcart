@@ -29,13 +29,14 @@
         <form method="POST">
             <fieldset class="updateBox">
                 <legend class="updateLegend">Update a Band: </legend>
-                <label class="updateLabel" for="bandName">Band Name: </label>
-                <input type="text" id="bandName" name="bandName" value="{{ Bresults[0]['bandName'] }}">
-                <label for="numMembers">Number of Members: </label>
-                <input type="number" id="numMembers" name="numMembers" value="{{ Bresults[0]['numMembers'] }}">
-                <label for="genre">Genre: </label>
-                <input type="text" id="genre" name="genre" value="{{ Bresults[0]['genre'] }}">
-                <input class="button5" type="submit" id="addBand" value="Update">
+                <label class="updateLabel" for="bandNameU">Band Name: </label>
+                <input type="text" id="bandNameU" name="bandNameU" value="{{ Bresults[0]['bandName'] }}">
+                <label for="numMembersU">Number of Members: </label>
+                <input type="number" id="numMembersU" name="numMembersU" value="{{ Bresults[0]['numMembers'] }}">
+                <label for="genreU">Genre: </label>
+                <input type="text" id="genreU" name="genreU" value="{{ Bresults[0]['genre'] }}">
+                <input class="button5" type="submit" id="addBand" value="Update" name="updateRequest">
+                <input type="hidden" name="bandIDU" value= "{{ Bresults[0]['bandID'] }}">
             </fieldset>
         </form>
     {% endif %}           
@@ -81,7 +82,7 @@
 
             {% endfor %}
             <td>
-                <form method = "POST" class = "insert">
+                <form method="POST" class="insert">
                     <input class="button5" type="submit" value="update" name="{{ Band[ID] }}">
                     <input type="hidden" name="PUT" value= {{ Band["bandID"] }}>
                 </form>
