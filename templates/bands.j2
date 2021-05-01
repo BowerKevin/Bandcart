@@ -26,10 +26,18 @@
         </form>
     
     {% if PUT %}
-        <div id="emptyBands">
-            <strong>Database table will display here once at least one Band
-                is added to the database. Do so using the form above.<strong>
-        </div>
+        <form method="POST">
+            <fieldset>
+                <legend>Update a Band: </legend>
+                <label for="bandName">Band Name: </label>
+                <input type="text" id="bandName" name="bandName" value="{{ Bresults[0]['bandName'] }}">
+                <label for="numMembers">Number of Members: </label>
+                <input type="number" id="numMembers" name="numMembers" value="{{ Bresults[0]['numMembers'] }}">
+                <label for="genre">Genre: </label>
+                <input type="text" id="genre" name="genre" value="{{ Bresults[0]['genre'] }}">
+                <input class="button5" type="submit" id="addBand" value="Update">
+            </fieldset>
+        </form>
     {% endif %}           
     
     {% if Bands == () %}
