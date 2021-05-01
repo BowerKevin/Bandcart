@@ -15,6 +15,8 @@ def root():
 
 @app.route('/bands', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def bands():
+    PUT = False
+    Bresults = None
     if request.method == "POST":
         if "bandName" in request.form:
             bandName = request.form['bandName']
@@ -27,19 +29,23 @@ def bands():
                 numMembers = None
             if genre == '':
                 genre = None
-            
+
             insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
             insertTuple = (bandName, numMembers, genre)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
         elif "PUT" in request.form:
-            print("########################################")
-            print(request.form["PUT"])
-            print("########################################")
+            PUT = True
+            bandID = (request.form["PUT"])
+            print(bandID)
+            bandQuery = "SELECT * from bands where bandID = %s;"
+            bandTuple = (bandID, )
+            cursor = db.execute_query(db_connection=db_connection, query=bandQuery, query_params=bandTuple)
+            Bresults = cursor.fetchall()
 
     query = "SELECT * from bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("bands.j2", Bands=results)
+    return render_template("bands.j2", Bands=results, Bresults=Bresults, PUT=PUT)
 
 @app.route('/events', methods = ['POST', 'GET', 'PUT', 'DELETE'])
 def events():

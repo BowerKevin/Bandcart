@@ -24,7 +24,13 @@
                 <input class="button5" type="submit" id="addBand" value="Add">
             </fieldset>
         </form>
-
+    
+    {% if PUT %}
+        <div id="emptyBands">
+            <strong>Database table will display here once at least one Band
+                is added to the database. Do so using the form above.<strong>
+        </div>
+    {% endif %}           
     
     {% if Bands == () %}
         <div id="emptyBands">
