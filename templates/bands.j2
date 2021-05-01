@@ -27,9 +27,9 @@
     
     {% if PUT %}
         <form method="POST">
-            <fieldset>
-                <legend>Update a Band: </legend>
-                <label for="bandName">Band Name: </label>
+            <fieldset class="updateBox">
+                <legend class="updateLegend">Update a Band: </legend>
+                <label class="updateLabel" for="bandName">Band Name: </label>
                 <input type="text" id="bandName" name="bandName" value="{{ Bresults[0]['bandName'] }}">
                 <label for="numMembers">Number of Members: </label>
                 <input type="number" id="numMembers" name="numMembers" value="{{ Bresults[0]['numMembers'] }}">

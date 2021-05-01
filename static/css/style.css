@@ -28,6 +28,16 @@ fieldset{
     display: inline;
 }
 
+label, fieldset{
+    color: white;
+}
+
+.updateBox{
+    border: solid 2px rgb(255, 255, 0);
+    display: inline;
+    color: yellow;
+}
+
 legend{
     font-weight: bold;
 }
