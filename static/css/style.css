@@ -274,7 +274,7 @@ a.navButtonUsed:hover{
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     font-weight:300;
-    color:grey;
+    color:rgb(71, 71, 71);
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     background-color:#5cb85c;
     text-align:center;
@@ -287,7 +287,7 @@ a.navButtonUsed:hover{
     border-color:black;
 }
 
-.updateRecord{
+.updateRecord, .updateButton{
     display:inline-block;
     padding:0.2em 1.0em;
     border:0.1em solid grey;
@@ -297,18 +297,39 @@ a.navButtonUsed:hover{
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     font-weight:300;
-    color:grey;
+    color:rgb(71, 71, 71);
     text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
     background-color:#f0ad4e;
     text-align:center;
     transition: all 0.15s;
 }
 
-.updateRecord:hover{
+.updateRecord:hover, .updateButton:hover{
     text-shadow: 0 0 2em rgba(255,255,255,1);
     color:black;
     border-color:black;
 }
 
+.deleteButton{
+    display:inline-block;
+    padding:0.2em 1.0em;
+    border:0.1em solid grey;
+    margin:0 0.2em 0.2em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:rgb(71, 71, 71);
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    background-color:#d9534f;
+    text-align:center;
+    transition: all 0.15s;
+}
 
+.deleteButton:hover{
+    text-shadow: 0 0 2em rgba(255,255,255,1);
+    color:black;
+    border-color:black;
+}
 /* --------------------------------------------------- */

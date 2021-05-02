@@ -13,7 +13,7 @@ db_connection = db.connect_to_database()
 def root():
     return render_template("main.j2")
 
-@app.route('/bands', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/bands', methods = ['POST', 'GET'])
 def bands():
     PUT = False
     Bresults = None
@@ -46,8 +46,11 @@ def bands():
             bandName = request.form["bandNameU"]
             numMembers = request.form["numMembersU"]
             genre = request.form["genreU"]
+            if numMembers == '':
+                numMembers = None
+            if genre == '':
+                genre = None
             updateTuple = (bandName, numMembers, genre, bandID)
-            print(updateTuple)
             updateQuery = "UPDATE `bands` SET `bandName` = %s, `numMembers` = %s, `genre` = %s where `bandID` = %s;"
             cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
         elif "DEL" in request.form:
@@ -63,7 +66,7 @@ def bands():
     results = cursor.fetchall()
     return render_template("bands.j2", Bands=results, Bresults=Bresults, PUT=PUT)
 
-@app.route('/events', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/events', methods = ['POST', 'GET'])
 def events():
     if request.method == "POST":
             eventName = request.form['eventName']
@@ -93,7 +96,7 @@ def events():
     results = cursor.fetchall()
     return render_template("events.j2", Events=results)
 
-@app.route('/bandsevents', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/bandsevents', methods = ['POST', 'GET'])
 def bandsandevents():
     if request.method == "POST":
             bandName = request.form['bandName']
@@ -141,7 +144,7 @@ def bandsandevents():
 
     return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
 
-@app.route('/customers', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/customers', methods = ['POST', 'GET'])
 def customers():
     if request.method == "POST":
         customerFirst = request.form['customerFirst']
@@ -166,7 +169,7 @@ def customers():
     results = cursor.fetchall()
     return render_template("customers.j2", Customers=results)
 
-@app.route('/tickets', methods = ['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/tickets', methods = ['POST', 'GET'])
 def tickets():
     if request.method == "POST":
         if "filterEvent" in request.form:
