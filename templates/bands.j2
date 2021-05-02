@@ -91,7 +91,10 @@
             </td>
 
             <td>
-            <button type="button" method="DELETE">delete</button>
+                <form method="POST" class="delete">
+                    <input class="deleteButton" type="submit" value="delete" name="{{ Band[ID] }}">
+                    <input type="hidden" name="DEL" value= {{ Band["bandID"] }}>
+                </form>
             </td>
         {% endfor %}
         </table>

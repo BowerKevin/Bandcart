@@ -50,7 +50,14 @@ def bands():
             print(updateTuple)
             updateQuery = "UPDATE `bands` SET `bandName` = %s, `numMembers` = %s, `genre` = %s where `bandID` = %s;"
             cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
-            
+        elif "DEL" in request.form:
+            bandID = request.form['DEL']
+            deleteMtM = "DELETE from `bandsevents` where `bandID` = %s;"
+            deleteQuery = "DELETE from `bands` where `bandID` = %s;"
+            deleteTuple = (bandID, )
+            cursor = db.execute_query(db_connection=db_connection, query=deleteMtM, query_params=deleteTuple)    
+            cursor = db.execute_query(db_connection=db_connection, query=deleteQuery, query_params=deleteTuple)      
+    
     query = "SELECT * from bands;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()

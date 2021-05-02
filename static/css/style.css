@@ -87,6 +87,10 @@ footer {
     margin: auto 0;
 }
 
+.delete{
+    margin: auto 0;
+}
+
 /* For header and button styles used code from: https://styleguide.github.com/ */
 /* Div around square buttons */
 .py-2 {
