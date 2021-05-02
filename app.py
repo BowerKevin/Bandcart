@@ -23,12 +23,9 @@ def bands():
             numMembers = request.form['numMembers']
             genre = request.form['genre']
 
-            if bandName == '':
-                bandName = None
-            if numMembers == '':
-                numMembers = None
-            if genre == '':
-                genre = None
+            if bandName == '': bandName = None
+            if numMembers == '': numMembers = None
+            if genre == '': genre = None
 
             insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
             insertTuple = (bandName, numMembers, genre)
@@ -46,10 +43,8 @@ def bands():
             bandName = request.form["bandNameU"]
             numMembers = request.form["numMembersU"]
             genre = request.form["genreU"]
-            if numMembers == '':
-                numMembers = None
-            if genre == '':
-                genre = None
+            if numMembers == '': numMembers = None
+            if genre == '': genre = None
             updateTuple = (bandName, numMembers, genre, bandID)
             updateQuery = "UPDATE `bands` SET `bandName` = %s, `numMembers` = %s, `genre` = %s where `bandID` = %s;"
             cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
