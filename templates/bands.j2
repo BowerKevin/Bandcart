@@ -19,7 +19,7 @@
                 <label for="bandName">Band Name: </label>
                 <input type="text" id="bandName" name="bandName">
                 <label for="numMembers">Number of Members: </label>
-                <input type="number" id="numMembers" name="numMembers">
+                <input type="number" id="numMembers" name="numMembers" min=0>
                 <label for="genre">Genre: </label>
                 <input type="text" id="genre" name="genre">
                 <input class="addRecord" type="submit" id="addBand" value="Add">
@@ -34,7 +34,7 @@
                 <label class="updateLabel" for="bandNameU">Band Name: </label>
                 <input type="text" id="bandNameU" name="bandNameU" value="{{ Bresults[0]['bandName'] }}">
                 <label for="numMembersU">Number of Members: </label>
-                <input type="number" id="numMembersU" name="numMembersU" value="{{ Bresults[0]['numMembers'] }}">
+                <input type="number" id="numMembersU" name="numMembersU" min=0 value="{{ Bresults[0]['numMembers'] }}">
                 <label for="genreU">Genre: </label>
                 <input type="text" id="genreU" name="genreU" value="{{ Bresults[0]['genre'] }}">
                 <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">

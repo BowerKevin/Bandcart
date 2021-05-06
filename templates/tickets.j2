@@ -35,9 +35,9 @@
                 <label for="orderDate">Date: </label>
                 <input type="date" id="orderDate" name="orderDate">
                 <label for="price">Price: $</label>
-                <input type="number" step="0.01" id="price" name="price">
+                <input type="number" step="0.01" min="0.00" id="price" name="price">
                 <label for="numTickets">Number of Tickets: </label>
-                <input type="text" id="numTickets" name="numTickets">
+                <input type="number" id="numTickets" min=0 name="numTickets">
                 
                 <input class="addRecord" type="submit" id="addBandEvent" value="Add">
             </fieldset>
