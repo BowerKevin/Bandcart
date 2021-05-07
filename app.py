@@ -94,6 +94,14 @@ def events():
 @app.route('/bandsevents', methods = ['POST', 'GET'])
 def bandsandevents():
     if request.method == "POST":
+        if "delBand" in request.form:
+            bandID = request.form['delBand']
+            eventID = request.form['delEvent']
+            deleteQuery = "DELETE from `bandsevents` where `bandID` = %s and `eventID` = %s;"
+            deleteTuple = (bandID, eventID)  
+            cursor = db.execute_query(db_connection=db_connection, query=deleteQuery, query_params=deleteTuple)      
+    
+        else:
             bandName = request.form['bandName']
             eventName = request.form['eventName']
             if bandName == '': bandName = None
@@ -103,7 +111,9 @@ def bandsandevents():
             insertTuple = (bandName, eventName)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple)
 
-    query = """SELECT b.bandName
+    query = """SELECT e.eventID
+                    , b.bandID
+                    , b.bandName
                     , e.eventName
                     , e.eventDate
                     , e.eventCity
@@ -112,7 +122,8 @@ def bandsandevents():
                  LEFT JOIN bandsevents be on e.eventID = be.eventID
                  LEFT JOIN bands b on b.bandID = be.bandID;"""
 
-    query2 = """SELECT b.bandName
+    query2 = """SELECT b.bandID 
+                    , b.bandName
                     , e.eventName
                     , e.eventDate
                     , e.eventCity
@@ -136,8 +147,10 @@ def bandsandevents():
     for x in results2:
         if x.get('bandName') != None:
             uniqueBands.add(x.get('bandName'))
-
-    return render_template("bandsevents.j2", BE=results, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
+    print(results)
+    print('\n')
+    print(results2)
+    return render_template("bandsevents.j2", BE=results, EV=results2, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
 
 @app.route('/customers', methods = ['POST', 'GET'])
 def customers():
