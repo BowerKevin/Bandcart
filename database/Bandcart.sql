@@ -1,5 +1,5 @@
 -- ####################################
--- Table structure for 'Bands' table ##
+-- Table structure for 'bands' table ##
 -- ####################################
 drop table if exists `bands`;
 create table `bands` (
@@ -15,7 +15,7 @@ INSERT INTO `bands` (`bandName`, `numMembers`, `genre` ) VALUES (
 );
 
 -- #####################################
--- Table structure for 'Events' table ##
+-- Table structure for 'events' table ##
 -- #####################################
 drop table if exists `events`;
 create table `events` (
@@ -34,7 +34,7 @@ INSERT INTO `events` (`eventName`, `eventDate`, `eventType`,
 );
 
 -- #####################################
--- Table structure for 'BandsEvents' table ##
+-- Table structure for 'bandsevents' table ##
 -- #####################################
 drop table if exists `bandsevents`;
 create table `bandsevents` (
@@ -51,7 +51,7 @@ INSERT INTO `bandsevents` (`bandID`, `eventID`) VALUES (
 );
 
 -- ########################################
--- Table structure for 'Customers' table ##
+-- Table structure for 'customers' table ##
 -- ########################################
 drop table if exists `customers`;
 create table `customers` (
@@ -70,7 +70,7 @@ VALUES ('Kevin', 'Santi', '1996-03-11', '123-456-7890', 'fakemail@123.com'
 );
 
 -- ########################################
--- Table structure for 'Tickets' table ####
+-- Table structure for 'tickets' table ####
 -- ########################################
 drop table if exists `tickets`;
 create table `tickets` (
