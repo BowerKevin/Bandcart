@@ -13,6 +13,7 @@
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
+    {% if not PUT %}
         <form method="POST">
             <fieldset>
                 <legend>Add an Event: </legend>
@@ -36,6 +37,34 @@
                 <input class="addRecord" type="submit" id="addBand" value="Add">
             </fieldset>
         </form>
+    {% endif %}
+
+    {% if PUT %}
+        <form method="POST">
+            <fieldset class="updateBox">
+                <legend class="updateLegend">Update an Event: </legend>
+                <label class="updateLabel" for="eventNameU">Event Name: </label>
+                <input type="text" id="eventNameU" name="eventNameU" value="{{ Bresults[0]['eventName'] }}">
+                <label for="eventDateU">Date of Event: </label>
+                <input type="datetime-local" id="eventDateU" name="eventDateU" value="{{ Bresults[0]['eventDate'] }}" >
+                <label for="eventTypeU">Type of Event: </label>
+
+                <input type="radio" id="eventTypeU" name="eventTypeU" value="Tour" {% if Bresults[0]['eventType'] == "Tour" %} checked {% endif %}  >
+                <label for="Tour">Tour</label>
+                <input type="radio" id="eventTypeU" name="eventTypeU" value="Concert" {% if Bresults[0]['eventType'] == "Concert" %} checked {% endif %} >
+                <label for="Concert">Concert</label>
+
+                <hr>
+            
+                <label for="eventCityU">City: </label>
+                <input type="text" id="eventCityU" name="eventCityU" value="{{ Bresults[0]['eventCity'] }}">
+                <label for="eventStateU">State: </label>
+                <input type="text" id="eventStateU" name="eventStateU" value="{{ Bresults[0]['eventState'] }}">
+                <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">
+                <input type="hidden" name="eventIDU" value= "{{ Bresults[0]['eventID'] }}">
+            </fieldset>
+        </form>
+    {% endif %} 
 
     
         {% if Events == () %}
@@ -79,11 +108,17 @@
 
                 {% endfor %}
                 <td>
-                <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
-                <button type="button" method="POST" id="{{ Event[bandID] }}">update</button>
+                <form method="POST" class="insert">
+                    <input class="updateButton" type="submit" value="update" name="{{ Event[ID] }}">
+                    <input type="hidden" name="PUT" value= {{ Event["eventID"] }}>
+                </form>
                 </td>
+
                 <td>
-                <button type="button" method="DELETE">delete</button>
+                <form method="POST" class="delete">
+                    <input class="deleteButton" type="submit" value="delete" name="{{ Event[ID] }}">
+                    <input type="hidden" name="DEL" value= {{ Event["eventID"] }}>
+                </form>
                 </td>
             {% endfor %}
             </table>

@@ -63,7 +63,10 @@ def bands():
 
 @app.route('/events', methods = ['POST', 'GET'])
 def events():
+    PUT = False
+    Bresults = None
     if request.method == "POST":
+        if "eventName" in request.form:
             eventName = request.form['eventName']
             eventDate = request.form['eventDate']
             eventType = request.form['eventType']
@@ -85,11 +88,46 @@ def events():
             insertQuery = "INSERT INTO `events` (`eventName`, `eventDate`, `eventType`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s);"
             insertTuple = (eventName, eventDate, eventType, eventCity, eventState)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
+        elif "PUT" in request.form:
+            PUT = True
+            eventID = request.form["PUT"]
+            eventQuery = "SELECT * from events where eventID = %s;"
+            eventTuple = (eventID, )
+            cursor = db.execute_query(db_connection=db_connection, query=eventQuery, query_params=eventTuple)
+            Bresults = cursor.fetchall()
+        elif "updateRequest" in request.form:
+            eventID = request.form["eventIDU"]
+            eventName = request.form["eventNameU"]
+            eventDate = request.form["eventDateU"]
+            eventType = request.form["eventTypeU"]
+            eventCity = request.form["eventCityU"]
+            eventState = request.form["eventStateU"]
+            if eventName == '': eventName = None
+            if eventDate == '': 
+                eventDate = None
+            elif eventDate != '':
+                date = eventDate[0:10]
+                time = eventDate[11:]
+                time += ':00'
+                eventDate = date + ' ' + time
+            if eventType == '': eventType = None
+            if eventCity == '': eventCity = None
+            if eventState == '': eventState = None
+            updateTuple = (eventName, eventType, eventCity, eventState, eventID)
+            updateQuery = "UPDATE `events` SET `eventName` = %s, `eventType` = %s, `eventCity` = %s, `eventState` = %s where `eventID` = %s;"
+            cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
+        elif "DEL" in request.form:
+            eventID = request.form['DEL']
+            deleteMtM = "DELETE from `bandsevents` where `eventID` = %s;"
+            deleteQuery = "DELETE from `events` where `eventID` = %s;"
+            deleteTuple = (eventID, )
+            cursor = db.execute_query(db_connection=db_connection, query=deleteMtM, query_params=deleteTuple)    
+            cursor = db.execute_query(db_connection=db_connection, query=deleteQuery, query_params=deleteTuple) 
         
     query = "SELECT * from events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("events.j2", Events=results)
+    return render_template("events.j2", Events=results, Bresults=Bresults, PUT=PUT)
 
 @app.route('/bandsevents', methods = ['POST', 'GET'])
 def bandsandevents():
