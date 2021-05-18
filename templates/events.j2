@@ -46,7 +46,7 @@
                 <label class="updateLabel" for="eventNameU">Event Name: </label>
                 <input type="text" id="eventNameU" name="eventNameU" value="{{ Bresults[0]['eventName'] }}">
                 <label for="eventDateU">Date of Event: </label>
-                <input type="datetime-local" id="eventDateU" name="eventDateU" value="{{ Bresults[0]['eventDate'] }}" >
+                <input type="datetime-local" id="eventDateU" name="eventDateU" value="{{ valueDate }}" >
                 <label for="eventTypeU">Type of Event: </label>
 
                 <input type="radio" id="eventTypeU" name="eventTypeU" value="Tour" {% if Bresults[0]['eventType'] == "Tour" %} checked {% endif %}  >

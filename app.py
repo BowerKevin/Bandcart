@@ -65,6 +65,7 @@ def bands():
 def events():
     PUT = False
     Bresults = None
+    valueDate = ''
     if request.method == "POST":
         if "eventName" in request.form:
             eventName = request.form['eventName']
@@ -95,6 +96,10 @@ def events():
             eventTuple = (eventID, )
             cursor = db.execute_query(db_connection=db_connection, query=eventQuery, query_params=eventTuple)
             Bresults = cursor.fetchall()
+            fullDate = str(Bresults[0]['eventDate'])
+            date = (fullDate[:10])
+            time = (fullDate[11:16])
+            valueDate = date + "T" + time
         elif "updateRequest" in request.form:
             eventID = request.form["eventIDU"]
             eventName = request.form["eventNameU"]
@@ -113,8 +118,8 @@ def events():
             if eventType == '': eventType = None
             if eventCity == '': eventCity = None
             if eventState == '': eventState = None
-            updateTuple = (eventName, eventType, eventCity, eventState, eventID)
-            updateQuery = "UPDATE `events` SET `eventName` = %s, `eventType` = %s, `eventCity` = %s, `eventState` = %s where `eventID` = %s;"
+            updateTuple = (eventName, eventType, eventDate, eventCity, eventState, eventID)
+            updateQuery = "UPDATE `events` SET `eventName` = %s, `eventType` = %s, `eventDate` = %s, `eventCity` = %s, `eventState` = %s where `eventID` = %s;"
             cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
         elif "DEL" in request.form:
             eventID = request.form['DEL']
@@ -123,11 +128,12 @@ def events():
             deleteTuple = (eventID, )
             cursor = db.execute_query(db_connection=db_connection, query=deleteMtM, query_params=deleteTuple)    
             cursor = db.execute_query(db_connection=db_connection, query=deleteQuery, query_params=deleteTuple) 
-        
+    
+    print(Bresults)
     query = "SELECT * from events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("events.j2", Events=results, Bresults=Bresults, PUT=PUT)
+    return render_template("events.j2", Events=results, Bresults=Bresults, PUT=PUT, valueDate = valueDate)
 
 @app.route('/bandsevents', methods = ['POST', 'GET'])
 def bandsandevents():
