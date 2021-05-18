@@ -17,16 +17,26 @@ def root():
 def bands():
     PUT = False
     Bresults = None
+    Error = False
     if request.method == "POST":
         if "bandName" in request.form:
             bandName = request.form['bandName']
             numMembers = request.form['numMembers']
             genre = request.form['genre']
 
-            if bandName == '': bandName = None
+            if bandName == '': 
+                Error = True
+                return render_template("bands.j2", Error = Error)
             if numMembers == '': numMembers = None
             if genre == '': genre = None
 
+            query = "SELECT * from bands;"
+            cursor = db.execute_query(db_connection=db_connection, query=query)
+            results = cursor.fetchall()
+            for row in results:
+                if row['bandName'] == bandName:
+                    Error = True
+                    return render_template("bands.j2", Error = Error)
             insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
             insertTuple = (bandName, numMembers, genre)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
