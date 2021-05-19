@@ -12,68 +12,75 @@
     </h6>  
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
-
-    {% if not PUT %}
-        <form method="POST">
-            <fieldset>
-                <legend>Add an Event: </legend>
-                <label for="eventName">Event Name: </label>
-                <input type="text" id="eventName" name="eventName">
-                <label for="eventDate">Date of Event: </label>
-                <input type="datetime-local" id="eventDate" name="eventDate">
-                <label for="eventType">Type of Event: </label>
-
-                <input type="radio" id="eventType" name="eventType" value="Tour">
-                <label for="Tour">Tour</label>
-                <input type="radio" id="eventType" name="eventType" value="Concert">
-                <label for="Concert">Concert</label>
-            
-                <hr>
-            
-                <label for="eventCity">City: </label>
-                <input type="text" id="eventCity" name="eventCity">
-                <label for="eventState">State: </label>
-                <input type="text" id="eventState" name="eventState">
-                <input class="addRecord" type="submit" id="addBand" value="Add">
-            </fieldset>
-        </form>
+    
+    {% if Error %}
+        <div id="emptyBands">
+            <strong>There was an error in your request. Please try again.
+            <strong>
+        </div>
     {% endif %}
 
-    {% if PUT %}
-        <form method="POST">
-            <fieldset class="updateBox">
-                <legend class="updateLegend">Update an Event: </legend>
-                <label class="updateLabel" for="eventNameU">Event Name: </label>
-                <input type="text" id="eventNameU" name="eventNameU" value="{{ Bresults[0]['eventName'] }}">
-                <label for="eventDateU">Date of Event: </label>
-                <input type="datetime-local" id="eventDateU" name="eventDateU" value="{{ valueDate }}" >
-                <label for="eventTypeU">Type of Event: </label>
+    {% if not Error %}
+        {% if not PUT %}
+            <form method="POST">
+                <fieldset>
+                    <legend>Add an Event: </legend>
+                    <label for="eventName">Event Name: </label>
+                    <input type="text" id="eventName" name="eventName">
+                    <label for="eventDate">Date of Event: </label>
+                    <input type="datetime-local" id="eventDate" name="eventDate">
+                    <label for="eventType">Type of Event: </label>
 
-                <input type="radio" id="eventTypeU" name="eventTypeU" value="Tour" {% if Bresults[0]['eventType'] == "Tour" %} checked {% endif %}  >
-                <label for="Tour">Tour</label>
-                <input type="radio" id="eventTypeU" name="eventTypeU" value="Concert" {% if Bresults[0]['eventType'] == "Concert" %} checked {% endif %} >
-                <label for="Concert">Concert</label>
+                    <input type="radio" id="eventType" name="eventType" value="Tour" checked="checked"> 
+                    <label for="Tour">Tour</label>
+                    <input type="radio" id="eventType" name="eventType" value="Concert">
+                    <label for="Concert">Concert</label>
+                
+                    <hr>
+                
+                    <label for="eventCity">City: </label>
+                    <input type="text" id="eventCity" name="eventCity">
+                    <label for="eventState">State: </label>
+                    <input type="text" id="eventState" name="eventState">
+                    <input class="addRecord" type="submit" id="addBand" value="Add">
+                </fieldset>
+            </form>
+        {% endif %}
 
-                <hr>
-            
-                <label for="eventCityU">City: </label>
-                <input type="text" id="eventCityU" name="eventCityU" value="{{ Bresults[0]['eventCity'] }}">
-                <label for="eventStateU">State: </label>
-                <input type="text" id="eventStateU" name="eventStateU" value="{{ Bresults[0]['eventState'] }}">
-                <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">
-                <input type="hidden" name="eventIDU" value= "{{ Bresults[0]['eventID'] }}">
-            </fieldset>
-        </form>
-    {% endif %} 
+        {% if PUT %}
+            <form method="POST">
+                <fieldset class="updateBox">
+                    <legend class="updateLegend">Update an Event: </legend>
+                    <label class="updateLabel" for="eventNameU">Event Name: </label>
+                    <input type="text" id="eventNameU" name="eventNameU" value="{{ Bresults[0]['eventName'] }}">
+                    <label for="eventDateU">Date of Event: </label>
+                    <input type="datetime-local" id="eventDateU" name="eventDateU" value="{{ valueDate }}" >
+                    <label for="eventTypeU">Type of Event: </label>
 
-    
+                    <input type="radio" id="eventTypeU" name="eventTypeU" value="Tour" {% if Bresults[0]['eventType'] == "Tour" %} checked {% endif %}  >
+                    <label for="Tour">Tour</label>
+                    <input type="radio" id="eventTypeU" name="eventTypeU" value="Concert" {% if Bresults[0]['eventType'] == "Concert" %} checked {% endif %} >
+                    <label for="Concert">Concert</label>
+
+                    <hr>
+                
+                    <label for="eventCityU">City: </label>
+                    <input type="text" id="eventCityU" name="eventCityU" value="{{ Bresults[0]['eventCity'] }}">
+                    <label for="eventStateU">State: </label>
+                    <input type="text" id="eventStateU" name="eventStateU" value="{{ Bresults[0]['eventState'] }}">
+                    <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">
+                    <input type="hidden" name="eventIDU" value= "{{ Bresults[0]['eventID'] }}">
+                </fieldset>
+            </form>
+        {% endif %} 
+
         {% if Events == () %}
             <div id="emptyBands">
                 <strong>Database table will display here once at least one Event
                     is added to the database. Do so using the form above.<strong>
             </div>
         {% endif %}
-    
+
         {% if Events != () %}
             <table class="tableCenter">
             <thead>
@@ -123,27 +130,28 @@
             {% endfor %}
             </table>
         {% endif %}
+    {% endif %}
 
-        <footer>
-            <a href="/" class="navButton">
-                Home
-            </a> 
-            <a href="/bands" class="navButton">
-                Bands
-            </a> 
-            <a href="/events" class="navButtonUsed">
-                Events
-            </a> 
-            <a href="/bandsevents" class="navButton">
-                BandsEvents
-            </a> 
-            <a href="/customers" class="navButton">
-                Customers
-            </a> 
-            <a href="/tickets" class="navButton">
-                Tickets
-            </a> 
-        </footer>
+    <footer>
+        <a href="/" class="navButton">
+            Home
+        </a> 
+        <a href="/bands" class="navButton">
+            Bands
+        </a> 
+        <a href="/events" class="navButtonUsed">
+            Events
+        </a> 
+        <a href="/bandsevents" class="navButton">
+            BandsEvents
+        </a> 
+        <a href="/customers" class="navButton">
+            Customers
+        </a> 
+        <a href="/tickets" class="navButton">
+            Tickets
+        </a> 
+    </footer>
 
     </div>
 </body>
