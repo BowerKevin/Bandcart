@@ -37,6 +37,7 @@ def bands():
                 if row['bandName'] == bandName:
                     Error = True
                     return render_template("bands.j2", Error = Error)
+
             insertQuery = "INSERT INTO `bands` (`bandName`, `numMembers`, `genre`) VALUES (%s,%s,%s);"
             insertTuple = (bandName, numMembers, genre)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
@@ -87,13 +88,20 @@ def events():
 
             if eventName == '' or eventDate == '' or eventDate == '' or eventType == '' or eventCity == '' or eventState == '':
                 Error = True
-                print('$$$$$$$$$$$$$$$$$$$$$$$$$$$')
                 return render_template("events.j2", Error = Error)
             if eventDate != '':
                 date = eventDate[0:10]
                 time = eventDate[11:]
                 time += ':00'
                 eventDate = date + ' ' + time
+            
+            query = "SELECT * from events;"
+            cursor = db.execute_query(db_connection=db_connection, query=query)
+            results = cursor.fetchall()
+            for row in results:
+                if row['eventName'] == eventName:
+                    Error = True
+                    return render_template("bands.j2", Error = Error)
 
             insertQuery = "INSERT INTO `events` (`eventName`, `eventDate`, `eventType`, `eventCity`, `eventState`) VALUES (%s,%s,%s,%s,%s);"
             insertTuple = (eventName, eventDate, eventType, eventCity, eventState)
@@ -137,8 +145,7 @@ def events():
             deleteTuple = (eventID, )
             cursor = db.execute_query(db_connection=db_connection, query=deleteMtM, query_params=deleteTuple)    
             cursor = db.execute_query(db_connection=db_connection, query=deleteQuery, query_params=deleteTuple) 
-    
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+
     query = "SELECT * from events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
