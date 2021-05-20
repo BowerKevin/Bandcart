@@ -164,8 +164,24 @@ def bandsandevents():
         else:
             bandName = request.form['bandName']
             eventName = request.form['eventName']
-            if bandName == '': bandName = None
-            if eventName == '': eventName = None
+
+            queryEventName = "SELECT eventID from events where eventName = %s;"
+            queryBandName = "SELECT bandID from bands where bandName = %s;"
+            cursorEventName = db.execute_query(db_connection=db_connection, query=queryEventName, query_params=(eventName,))
+            cursorBandName = db.execute_query(db_connection=db_connection, query=queryBandName, query_params=(bandName,))
+            resultsEN = cursorEventName.fetchall()
+            resultsBN = cursorBandName.fetchall()
+            eventID = resultsEN[0]['eventID']
+            bandID = resultsBN[0]['bandID']
+            print(eventID, bandID)
+
+            queryAll = "SELECT * from bandsevents;"
+            cursorAll = db.execute_query(db_connection=db_connection, query=queryAll)
+            resultsAll = cursorAll.fetchall()
+            for row in resultsAll:
+                if row['eventID'] == eventID and row['bandID'] == bandID:
+                    Error = True
+                    return render_template("bandsevents.j2", Error = Error)
 
             insertQuery = "INSERT INTO `bandsevents` (`bandID`, `eventID`) VALUES ((SELECT bandID from bands where bandName = %s),(SELECT eventID from events where eventName = %s));"
             insertTuple = (bandName, eventName)

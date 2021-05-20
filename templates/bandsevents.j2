@@ -13,6 +13,14 @@
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
+    {% if Error %}
+        <div id="emptyBands">
+            <strong>There was an error in your request. Please try again.
+            <strong>
+        </div>
+    {% endif %}
+    
+    {% if not Error %}
         <form method="POST">
             <fieldset>
                 <legend>Associate a Band with an Event: </legend>
@@ -34,61 +42,57 @@
             </fieldset>
         </form>
 
-    {% if BE == () %}
-        <div id="emptyBands">
-            <strong>Database table will display here once at least one Band is associated to an Event.
-                Do so using the form above.<strong>
-        </div>
-    {% endif %}
-    
-    {% if BE != () %}
-        <table class="tableCenter">
-        <thead>
-        <tr>
-            <!-- Iterate through each key in the first entry to get the
-            column name -->
-            {% for key in BE[0].keys() %}
-                
-                {% if "ID" not in key %}
-                    <!-- Create a <th> tag with the key inside of it, this will be
-                    our header row -->
-                    <th>{{ key }}</th>
-                {% endif %}
-
-            <!-- End of this for loop -->
-            {% endfor %}
-            <th>update</th>
-            <th>delete</th>
-        </tr>
-        <tbody>
-
-        <!-- Now, iterate through every person in bsg_people -->
-        {% for x in BE %}
-            {% if x.bandName != None and x.eventName != None %}
+        {% if BE == () %}
+            <div id="emptyBands">
+                <strong>Database table will display here once at least one Band is associated to an Event.
+                    Do so using the form above.<strong>
+            </div>
+        {% endif %}
+        
+        {% if BE != () %}
+            <table class="tableCenter">
+            <thead>
             <tr>
-                <!-- Then iterate through every key in the current person dictionary -->
-                {% for key in x.keys() %}
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in BE[0].keys() %}
+                    
+                    {% if "ID" not in key %}
+                        <!-- Create a <th> tag with the key inside of it, this will be
+                        our header row -->
+                        <th>{{ key }}</th>
+                    {% endif %}
 
-                    <!-- {% if "ID" not in key %} -->
-                        <!-- Create a <td> element with the value of that key in it -->
-                        <td>{{x[key]}}</td>
-                    <!-- {% endif %} -->
-
+                <!-- End of this for loop -->
                 {% endfor %}
-                <td>
-                <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
-                <button type="button" method="PUT">update</button>
-                </td>
-                <td>
-                    <form method="POST" class="delete">
-                        <input class="deleteButton" type="submit" value="delete" name="{{ x[ID] }}">
-                        <input type="hidden" name="delBand" value= {{ x["bandID"] }}>
-                        <input type="hidden" name="delEvent" value= {{ x["eventID"] }}>
-                    </form>
-                </td>
-            {% endif %}
-        {% endfor %}
-        </table>
+                <th>delete</th>
+            </tr>
+            <tbody>
+
+            <!-- Now, iterate through every person in bsg_people -->
+            {% for x in BE %}
+                {% if x.bandName != None and x.eventName != None %}
+                <tr>
+                    <!-- Then iterate through every key in the current person dictionary -->
+                    {% for key in x.keys() %}
+
+                        <!-- {% if "ID" not in key %} -->
+                            <!-- Create a <td> element with the value of that key in it -->
+                            <td>{{x[key]}}</td>
+                        <!-- {% endif %} -->
+
+                    {% endfor %}
+                    <td>
+                        <form method="POST" class="delete">
+                            <input class="deleteButton" type="submit" value="delete" name="{{ x[ID] }}">
+                            <input type="hidden" name="delBand" value= {{ x["bandID"] }}>
+                            <input type="hidden" name="delEvent" value= {{ x["eventID"] }}>
+                        </form>
+                    </td>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% endif %}
     {% endif %}
 
     <footer>
