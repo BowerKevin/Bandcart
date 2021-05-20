@@ -77,7 +77,10 @@
             <button type="button" method="PUT">update</button>
             </td>
             <td>
-            <button type="button" method="DELETE">delete</button>
+                <form method="POST" class="delete">
+                    <input class="deleteButton" type="submit" value="delete" name="{{ Customer[ID] }}">
+                    <input type="hidden" name="DEL" value= {{ Customer["customerID"] }}>
+                </form>
             </td>
         {% endfor %}
         </table>
