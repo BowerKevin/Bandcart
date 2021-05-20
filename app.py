@@ -284,13 +284,10 @@ def tickets():
             results = cursor.fetchall()
             return render_template("ticketsFiltered.j2", Tickets=results)
         elif 'DEL' in request.form:
-            print('hi')
             ticketID = request.form['DEL']
             deleteTicket = "DELETE from `tickets` where `ticketID` = %s;"
             deleteTuple = (ticketID, )
             cursor = db.execute_query(db_connection=db_connection, query=deleteTicket, query_params=deleteTuple)
-            
-
         else:
             customerName = request.form['customerName']
             eventName = request.form['eventName']
