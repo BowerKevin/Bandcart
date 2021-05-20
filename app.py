@@ -286,10 +286,6 @@ def tickets():
         elif 'DEL' in request.form:
             print('hi')
             ticketID = request.form['DEL']
-            print(request.form['DEL'])
-            print('^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-            print(ticketID)
-            print('^^^^^^^^^^^^^^^^^^^^^^^^^^^')
             deleteTicket = "DELETE from `tickets` where `ticketID` = %s;"
             deleteTuple = (ticketID, )
             cursor = db.execute_query(db_connection=db_connection, query=deleteTicket, query_params=deleteTuple)
