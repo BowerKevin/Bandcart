@@ -13,11 +13,12 @@
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
-    {% if Error %}
-        <div id="emptyBands">
-            <strong>There was an error in your request. Please try again.
-            <strong>
-        </div>
+        {% if Error %}
+        <h6 class="alt-h6 text-center mb-4 mb-md-6">
+            <strong>There was an error in your request. Please try again.</strong>
+            <br>
+            Reason: The Event Name and Band Name combination already exists in the database.
+        </h6>
     {% endif %}
     
     {% if not Error %}
