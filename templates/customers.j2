@@ -12,6 +12,7 @@
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
 
+    {% if not PUT %}
         <form method="POST">
             <fieldset>
                 <legend>Add a Customer: </legend>
@@ -31,6 +32,30 @@
                 <input class="addRecord" type="submit" id="addBand" value="Add">
             </fieldset>
         </form>
+    {% endif %}
+
+    {% if PUT %}
+        <form method="POST">
+            <fieldset class="updateBox">
+                <legend class="updateLegend">Update a Customer: </legend>
+                <label class="updateLabel" for="customerFirstU">First Name: </label>
+                <input type="text" id="customerFirstU" name="customerFirstU" value="{{ Bresults[0]['customerFirst'] }}">
+                <label for="customerLastU">Last Name: </label>
+                <input type="text" id="customerLastU" name="customerLastU" value="{{ Bresults[0]['customerLast'] }}">
+                <label for="customerDoBU">Date of Birth: </label>
+                <input type="date" id="customerDoBU" name="customerDoBU" value="{{ valueDate }}" >
+
+                <hr>
+            
+                <label for="phoneNumU">Phone Number: </label>
+                <input type="tel" id="phoneNumU" name="phoneNumU" value="{{ Bresults[0]['phoneNum'] }}">
+                <label for="emailU">Email: </label>
+                <input type="email" id="emailU" name="emailU" value="{{ Bresults[0]['email'] }}">
+                <input class="updateRecord" type="submit" id="updateRecord" value="Update" name="updateRequest">
+                <input type="hidden" name="customerIDU" value= "{{ Bresults[0]['customerID'] }}">
+            </fieldset>
+        </form>
+    {% endif %} 
 
     {% if Customers == () %}
         <div id="emptyBands">
@@ -73,9 +98,12 @@
 
             {% endfor %}
             <td>
-            <!-- <form method="PUT"><input type="submit" id="updateBand" value="update"><form> -->
-            <button type="button" method="PUT">update</button>
+                <form method="POST" class="insert">
+                    <input class="updateButton" type="submit" value="update" name="{{ Customer[ID] }}">
+                    <input type="hidden" name="PUT" value= {{ Customer["customerID"] }}>
+                </form>
             </td>
+
             <td>
                 <form method="POST" class="delete">
                     <input class="deleteButton" type="submit" value="delete" name="{{ Customer[ID] }}">

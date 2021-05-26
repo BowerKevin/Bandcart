@@ -230,6 +230,9 @@ def bandsandevents():
 
 @app.route('/customers', methods = ['POST', 'GET'])
 def customers():
+    PUT = False
+    Bresults = None
+    valueDate = ''
     if request.method == "POST":
         if 'customerFirst' in request.form:
             customerFirst = request.form['customerFirst']
@@ -247,8 +250,31 @@ def customers():
             insertQuery = "INSERT INTO `customers` (`customerFirst`, `customerLast`, `customerDoB`,`phoneNum`, `email`) VALUES (%s,%s,%s,%s,%s);"
             insertTuple = (customerFirst, customerLast, customerDoB, phoneNum, email)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
-        elif 'DEL' in request.form:
-            customerID = request.form['DEL']
+        elif "PUT" in request.form:
+            PUT = True
+            customerID = request.form["PUT"]
+            customerQuery = "SELECT * from customers where customerID = %s;"
+            customerTuple = (customerID, )
+            cursor = db.execute_query(db_connection=db_connection, query=customerQuery, query_params=customerTuple)
+            Bresults = cursor.fetchall()
+            valueDate = str(Bresults[0]['customerDoB'])
+        elif "updateRequest" in request.form:
+            customerID = request.form["customerIDU"]
+            customerFirst = request.form['customerFirstU']
+            customerLast = request.form['customerLastU']
+            customerDoB = request.form['customerDoBU']
+            phoneNum = request.form['phoneNumU']
+            email = request.form['emailU']
+            if customerFirst == '': customerFirst = None
+            if customerLast == '': customerLast = None
+            if customerDoB == '': customerDoB = None
+            if phoneNum == '': phoneNum = None
+            if email == '': email = None
+            updateTuple = (customerFirst, customerLast, customerDoB, phoneNum, email, customerID)
+            updateQuery = "UPDATE `customers` SET `customerFirst` = %s, `customerLast` = %s, `customerDoB` = %s, `phoneNum` = %s, `email` = %s where `customerID` = %s;"
+            cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
+        elif "DEL" in request.form:
+            customerID = request.form["DEL"]
             deleteCustomer = "DELETE from `customers` where `customerID` = %s;"
             deleteTuple = (customerID,)
             cursor = db.execute_query(db_connection=db_connection, query=deleteCustomer, query_params=deleteTuple)
@@ -259,7 +285,7 @@ def customers():
     query = "SELECT * from customers;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("customers.j2", Customers=results)
+    return render_template("customers.j2", Customers=results, Bresults=Bresults, PUT=PUT, valueDate = valueDate)
 
 @app.route('/tickets', methods = ['POST', 'GET'])
 def tickets():
