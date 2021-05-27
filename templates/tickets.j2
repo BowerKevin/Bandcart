@@ -3,7 +3,7 @@
         <link rel="stylesheet" type="text/css" href="./static/css/style.css">
     </head>
     <body>
-        
+    
     <h1 class="alt-h1 text-center mb-4 mb-md-6">Tickets</h1> 
     <h6 class="alt-h6 text-center mb-4 mb-md-6">
         Purchase Tickets for one or more Events! Enter in all information, set your own
@@ -11,6 +11,17 @@
     </h6>  
     
     <div id="main" class="d-flex flex-wrap flex-content-stretch gutter-md py-2">
+
+    {% if Error %}
+
+        <h6 class="alt-h6 text-center mb-4 mb-md-6">
+            <strong>There was an error in your request. Please try again.</strong>
+            <br>
+            Reasons: Date, Price, and Number of Tickets cannot be empty when updating a record.
+        </h6>
+    {% endif %}
+
+    {% if not Error %}
 
         <form method="POST">
             <fieldset>
@@ -37,7 +48,7 @@
                 <label for="price">Price: $</label>
                 <input type="number" step="0.01" min="0.00" id="price" name="price">
                 <label for="numTickets">Number of Tickets: </label>
-                <input type="number" id="numTickets" min=0 name="numTickets">
+                <input type="number" id="numTickets" min=1 name="numTickets">
                 
                 <input class="addRecord" type="submit" id="addBandEvent" value="Add">
             </fieldset>
@@ -58,59 +69,60 @@
         </form>
 
     
-    {% if Tickets == () %}
-        <div id="emptyBands">
-            <strong>Database table will display here once at least one Ticket
-                is assigned to a Customer and an Event. Do so using the form above.<strong>
-        </div>
-    {% endif %}
-    
-    {% if Tickets != () %}
-        <table class="tableCenter">
-        <thead>
-        <tr>
-            <!-- Iterate through each key in the first entry to get the
-            column name -->
-            {% for key in Tickets[0].keys() %}
-                
-                {% if "ID" not in key %}
-                    <!-- Create a <th> tag with the key inside of it, this will be
-                    our header row -->
-                    <th>{{ key }}</th>
-                {% endif %}
-
-            <!-- End of this for loop -->
-            {% endfor %}
-            <!-- <th>update</th> -->
-            <th>delete</th>
-        </tr>
-        <tbody>
-
-        <!-- Now, iterate through every person in bsg_people -->
-        {% for Ticket in Tickets %}
-            {% if Ticket.customerFirst != None %}
+        {% if Tickets == () %}
+            <div id="emptyBands">
+                <strong>Database table will display here once at least one Ticket
+                    is assigned to a Customer and an Event. Do so using the form above.<strong>
+            </div>
+        {% endif %}
+        
+        {% if Tickets != () %}
+            <table class="tableCenter">
+            <thead>
             <tr>
-                <!-- Then iterate through every key in the current person dictionary -->
-                {% for key in Ticket.keys() %}
-
+                <!-- Iterate through each key in the first entry to get the
+                column name -->
+                {% for key in Tickets[0].keys() %}
+                    
                     {% if "ID" not in key %}
-                        <!-- Create a <td> element with the value of that key in it -->
-                        <td>{{Ticket[key]}}</td>
+                        <!-- Create a <th> tag with the key inside of it, this will be
+                        our header row -->
+                        <th>{{ key }}</th>
                     {% endif %}
 
+                <!-- End of this for loop -->
                 {% endfor %}
-                <!-- <td>
-                <button type="button" method="PUT">update</button>
-                </td> -->
-                <td>
-                    <form method="POST" class="delete">
-                        <input class="deleteButton" type="submit" value="delete" name="hello">
-                        <input type="hidden" name="DEL" value= {{ Ticket["ticketID"] }}>
-                    </form>
-                </td>
-            {% endif %}
-        {% endfor %}
-        </table>
+                <!-- <th>update</th> -->
+                <th>delete</th>
+            </tr>
+            <tbody>
+
+            <!-- Now, iterate through every person in bsg_people -->
+            {% for Ticket in Tickets %}
+                {% if Ticket.customerFirst != None %}
+                <tr>
+                    <!-- Then iterate through every key in the current person dictionary -->
+                    {% for key in Ticket.keys() %}
+
+                        {% if "ID" not in key %}
+                            <!-- Create a <td> element with the value of that key in it -->
+                            <td>{{Ticket[key]}}</td>
+                        {% endif %}
+
+                    {% endfor %}
+                    <!-- <td>
+                    <button type="button" method="PUT">update</button>
+                    </td> -->
+                    <td>
+                        <form method="POST" class="delete">
+                            <input class="deleteButton" type="submit" value="delete" name="hello">
+                            <input type="hidden" name="DEL" value= {{ Ticket["ticketID"] }}>
+                        </form>
+                    </td>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% endif %}
     {% endif %}
 
     <footer>

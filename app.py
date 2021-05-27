@@ -283,6 +283,7 @@ def customers():
 
 @app.route('/tickets', methods = ['POST', 'GET'])
 def tickets():
+    Error = False
     if request.method == "POST":
         if "filterEvent" in request.form:
             filterEvent = request.form['filterEvent']
@@ -318,6 +319,10 @@ def tickets():
             orderDate = request.form['orderDate']
             price = request.form['price']
             numTickets = request.form['numTickets']
+
+            if orderDate == '' or price == '' or numTickets == '': 
+                Error = True
+                return render_template("tickets.j2", Error = Error)
 
             insertQuery = """INSERT INTO `tickets` (`orderDate`, `price`, `numTickets`, `customerID`, `eventID`) VALUES 
             (%s, %s, %s,

@@ -4,6 +4,8 @@ html{
     /* background-image: linear-gradient(to right bottom, #005eeb, #1652ee, #2c44ee, #4132ee, #5412eb);     */
     /* background-image: linear-gradient(to right bottom, #004bbb, #2f4ecb, #4c50da, #6751e7, #8250f4); */
     background-image: linear-gradient(to left top, #370020, #36032a, #330733, #2d0e3d, #231547, #231e56, #202766, #163176, #254191, #3451ae, #4462cb, #5373e9);
+    overflow-y: scroll; 
+
 }
 
 th, td{
@@ -82,9 +84,13 @@ legend{
 }
 
 footer {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
+    position: fixed;
+    height: 50px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+    background: rgb(41, 41, 41);
 }
 
 .insert{
