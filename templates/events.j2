@@ -17,8 +17,13 @@
         <h6 class="alt-h6 text-center mb-4 mb-md-6">
             <strong>There was an error in your request. Please try again.</strong>
             <br>
-            Reasons: No field may be blank or the entered Event Name already exists in the database.
+            Reasons: No field may be blank or the entered Event Name already exists in the database. <br>
+            Event Date may not be a date in the past.
+
         </h6>
+        <a href="/events" class="navButtonReturn">
+            Return
+        </a> 
     {% endif %}
 
     {% if not Error %}
@@ -29,7 +34,7 @@
                     <label for="eventName">Event Name: </label>
                     <input type="text" id="eventName" name="eventName">
                     <label for="eventDate">Date of Event: </label>
-                    <input type="datetime-local" id="eventDate" name="eventDate">
+                    <input type="datetime-local" id="eventDate" name="eventDate" min="{{ today }}">
                     <label for="eventType">Type of Event: </label>
 
                     <input type="radio" id="eventType" name="eventType" value="Tour" checked="checked"> 

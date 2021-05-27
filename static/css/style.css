@@ -273,6 +273,29 @@ a.navButtonUsed:hover{
     border: 0.1em solid #000000;
     ;
 }
+
+a.navButtonReturn{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #d9534f;
+    color:rgb(20, 20, 20);
+    margin:.5em 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color:#d9534f;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+a.navButtonReturn:hover{
+    color:#000000;
+    background-color:#d9534f;
+    border: 0.1em solid #000000;
+    ;
+}
     
 .addRecord{
     display:inline-block;

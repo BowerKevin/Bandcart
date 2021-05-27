@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request
 import os
 import database.db_connector as db
-
+from datetime import date
 # Configuration
 
 app = Flask(__name__)
 db_connection = db.connect_to_database()
 
 # Routes 
+today = date.today()
 
 @app.route('/')
 def root():
@@ -149,7 +150,8 @@ def events():
     query = "SELECT * from events;"    
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
-    return render_template("events.j2", Events=results, Bresults=Bresults, PUT=PUT, valueDate = valueDate)
+    print(today)
+    return render_template("events.j2", Events=results, Bresults=Bresults, PUT=PUT, valueDate = valueDate, today=today)
 
 @app.route('/bandsevents', methods = ['POST', 'GET'])
 def bandsandevents():
