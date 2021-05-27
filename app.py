@@ -223,9 +223,6 @@ def bandsandevents():
     for x in results2:
         if x.get('bandName') != None:
             uniqueBands.add(x.get('bandName'))
-    print(results)
-    print('\n')
-    print(results2)
     return render_template("bandsevents.j2", BE=results, EV=results2, uniqueEvents=uniqueEvents, uniqueBands=uniqueBands)
 
 @app.route('/customers', methods = ['POST', 'GET'])
@@ -248,29 +245,6 @@ def customers():
             insertQuery = "INSERT INTO `customers` (`customerFirst`, `customerLast`, `customerDoB`,`phoneNum`, `email`) VALUES (%s,%s,%s,%s,%s);"
             insertTuple = (customerFirst, customerLast, customerDoB, phoneNum, email)
             insertCursor = db.execute_query(db_connection=db_connection, query=insertQuery, query_params=insertTuple) 
-        elif "PUT" in request.form:
-            PUT = True
-            customerID = request.form["PUT"]
-            customerQuery = "SELECT * from customers where customerID = %s;"
-            customerTuple = (customerID, )
-            cursor = db.execute_query(db_connection=db_connection, query=customerQuery, query_params=customerTuple)
-            Bresults = cursor.fetchall()
-            valueDate = str(Bresults[0]['customerDoB'])
-        elif "updateRequest" in request.form:
-            customerID = request.form["customerIDU"]
-            customerFirst = request.form['customerFirstU']
-            customerLast = request.form['customerLastU']
-            customerDoB = request.form['customerDoBU']
-            phoneNum = request.form['phoneNumU']
-            email = request.form['emailU']
-            if customerFirst == '': customerFirst = None
-            if customerLast == '': customerLast = None
-            if customerDoB == '': customerDoB = None
-            if phoneNum == '': phoneNum = None
-            if email == '': email = None
-            updateTuple = (customerFirst, customerLast, customerDoB, phoneNum, email, customerID)
-            updateQuery = "UPDATE `customers` SET `customerFirst` = %s, `customerLast` = %s, `customerDoB` = %s, `phoneNum` = %s, `email` = %s where `customerID` = %s;"
-            cursor = db.execute_query(db_connection=db_connection, query=updateQuery, query_params=updateTuple)
         elif "DEL" in request.form:
             customerID = request.form["DEL"]
             deleteCustomer = "DELETE from `customers` where `customerID` = %s;"
@@ -286,16 +260,14 @@ def customers():
             customerTuple = (customerID, )
             cursor = db.execute_query(db_connection=db_connection, query=customerQuery, query_params=customerTuple)
             Cresults = cursor.fetchall()
+            print(Cresults)
         elif 'updateRequest' in request.form:
-            print("############################################")
-            print("Here")
             customerID = request.form["customerIDU"]
             customerFirst = request.form["customerFirstU"]
             customerLast = request.form["customerLastU"]
             customerDoB = request.form["customerDoBU"]
             phoneNum = request.form["phoneNumU"]
             email = request.form["emailU"]
-            print("Here")
             if customerFirst == '' or customerLast == '' or customerDoB == '' or phoneNum == '' or email == '':
                 Error = True
                 return render_template("customers.j2", Error = Error)
